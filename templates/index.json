@@ -54,10 +54,16 @@
         "hero_product_2",
         "hero_product_3"
       ]
+    },
+
+    "purelane_reviews": {
+      "type": "purelane-reviews",
+      "settings": {}
     }
   },
 
   "order": [
-    "purelane_hero"
+    "purelane_hero",
+    "purelane_reviews"
   ]
 }

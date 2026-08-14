@@ -1,0 +1,490 @@
+{{ 'purelane-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  ============================================================
+  PURELANE REVIEWS
+  Aggregate rating and review count are calculated from the
+  review metaobjects selected in this section's blocks.
+
+  Rating:
+    Average of all selected review ratings.
+
+  Review count:
+    Number of selected review entries.
+
+  Homes:
+    Still a separate editable marketing value for now.
+  ============================================================
+{%- endcomment -%}
+
+{%- assign review_blocks = section.blocks -%}
+
+{%- assign total_rating = 0 -%}
+{%- assign rated_review_count = 0 -%}
+{%- assign review_count = 0 -%}
+
+{%- for block in review_blocks -%}
+
+  {%- assign review = block.settings.review -%}
+
+  {%- if review != blank -%}
+
+    {%- assign review_count = review_count | plus: 1 -%}
+
+    {%- if review.rating != blank -%}
+      {%- assign rating_value = review.rating | plus: 0 -%}
+      {%- assign total_rating = total_rating | plus: rating_value -%}
+      {%- assign rated_review_count = rated_review_count | plus: 1 -%}
+    {%- endif -%}
+
+  {%- endif -%}
+
+{%- endfor -%}
+
+
+{%- if rated_review_count > 0 -%}
+
+  {%- assign average_rating = total_rating
+    | divided_by: rated_review_count
+    | round: 1
+  -%}
+
+{%- else -%}
+
+  {%- assign average_rating = 0 -%}
+
+{%- endif -%}
+
+
+<section
+  id="PurelaneReviews-{{ section.id }}"
+  class="pl-reviews"
+  aria-labelledby="PurelaneReviewsHeading-{{ section.id }}"
+>
+
+  <div class="pl-reviews__wrap">
+
+    <div class="pl-reviews__header">
+
+      <span
+        id="PurelaneReviewsHeading-{{ section.id }}"
+        class="pl-reviews__kicker"
+      >
+        {{ section.settings.kicker | escape }}
+      </span>
+
+
+      {%- if review_count > 0 -%}
+
+        <span class="pl-reviews__aggregate">
+
+          <span
+            class="pl-reviews__stars"
+            aria-label="{{ average_rating }} out of 5 stars"
+          >
+            ★★★★★
+          </span>
+
+          <strong>
+            {{ average_rating }}
+          </strong>
+
+          <span>
+            from {{ review_count }} review{% if review_count != 1 %}s{% endif %}
+          </span>
+
+        </span>
+
+      {%- endif -%}
+
+
+      <span class="pl-reviews__aggregate">
+
+        {{ section.settings.loved_by_label | escape }}
+
+        <strong>
+          {{ section.settings.loved_by_count | escape }}
+        </strong>
+
+        {{ section.settings.loved_by_suffix | escape }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+
+  {% if review_count > 0 %}
+
+    <div
+      class="pl-reviews__rail"
+      aria-label="{{ section.settings.rail_label | escape }}"
+    >
+
+      <div class="pl-reviews__track">
+
+        {%- comment -%}
+          ======================================================
+          FIRST COPY
+          ======================================================
+        {%- endcomment -%}
+
+        {% for block in review_blocks %}
+
+          {% assign review = block.settings.review %}
+
+          {% if review != blank %}
+
+            <article
+              class="pl-review-card"
+              {{ block.shopify_attributes }}
+            >
+
+              <div
+                class="pl-review-card__stars"
+                aria-label="{{ review.rating }} out of 5 stars"
+              >
+
+                {% assign rating = review.rating | plus: 0 %}
+
+                {% for star in (1..5) %}
+
+                  {% if star <= rating %}
+
+                    <span aria-hidden="true">★</span>
+
+                  {% else %}
+
+                    <span
+                      class="pl-review-card__star--empty"
+                      aria-hidden="true"
+                    >
+                      ★
+                    </span>
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+
+
+              {% if review.review_title != blank %}
+
+                <h3 class="pl-review-card__title">
+                  {{ review.review_title | escape }}
+                </h3>
+
+              {% endif %}
+
+
+              {% if review.review_text != blank %}
+
+                <div class="pl-review-card__body">
+                  {{ review.review_text | escape | newline_to_br }}
+                </div>
+
+              {% endif %}
+
+
+              <div class="pl-review-card__who">
+
+                {% if review.verified_buyer == true %}
+
+                  <span
+                    class="pl-review-card__verified"
+                    aria-label="Verified buyer"
+                    title="Verified buyer"
+                  >
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="m5 13 4 4L19 7"></path>
+                    </svg>
+
+                  </span>
+
+                {% endif %}
+
+
+                {% if review.reviewer_name != blank %}
+
+                  <strong>
+                    {{ review.reviewer_name | escape }}
+                  </strong>
+
+                {% endif %}
+
+
+                {% assign review_product = review.product %}
+
+                {% if review_product != blank %}
+
+                  <span aria-hidden="true">
+                    ·
+                  </span>
+
+                  <span>
+                    {{ review_product.title | escape }}
+                  </span>
+
+                {% endif %}
+
+              </div>
+
+            </article>
+
+          {% endif %}
+
+        {% endfor %}
+
+
+        {%- comment -%}
+          ======================================================
+          SECOND COPY
+          Used only to create the seamless marquee loop.
+          ======================================================
+        {%- endcomment -%}
+
+        {% for block in review_blocks %}
+
+          {% assign review = block.settings.review %}
+
+          {% if review != blank %}
+
+            <article
+              class="pl-review-card"
+              aria-hidden="true"
+            >
+
+              <div class="pl-review-card__stars">
+
+                {% assign rating = review.rating | plus: 0 %}
+
+                {% for star in (1..5) %}
+
+                  {% if star <= rating %}
+
+                    <span aria-hidden="true">★</span>
+
+                  {% else %}
+
+                    <span
+                      class="pl-review-card__star--empty"
+                      aria-hidden="true"
+                    >
+                      ★
+                    </span>
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+
+
+              {% if review.review_title != blank %}
+
+                <h3 class="pl-review-card__title">
+                  {{ review.review_title | escape }}
+                </h3>
+
+              {% endif %}
+
+
+              {% if review.review_text != blank %}
+
+                <div class="pl-review-card__body">
+                  {{ review.review_text | escape | newline_to_br }}
+                </div>
+
+              {% endif %}
+
+
+              <div class="pl-review-card__who">
+
+                {% if review.verified_buyer == true %}
+
+                  <span
+                    class="pl-review-card__verified"
+                    aria-hidden="true"
+                  >
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m5 13 4 4L19 7"></path>
+                    </svg>
+
+                  </span>
+
+                {% endif %}
+
+
+                {% if review.reviewer_name != blank %}
+
+                  <strong>
+                    {{ review.reviewer_name | escape }}
+                  </strong>
+
+                {% endif %}
+
+
+                {% assign review_product = review.product %}
+
+                {% if review_product != blank %}
+
+                  <span aria-hidden="true">
+                    ·
+                  </span>
+
+                  <span>
+                    {{ review_product.title | escape }}
+                  </span>
+
+                {% endif %}
+
+              </div>
+
+            </article>
+
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  {% else %}
+
+    <div class="pl-reviews__empty">
+      Add review entries to this section from the Shopify Theme Editor.
+    </div>
+
+  {% endif %}
+
+</section>
+
+
+{% schema %}
+
+{
+  "name": "Purelane reviews",
+
+  "tag": "section",
+
+  "class": "section-purelane-reviews",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Section label",
+      "default": "That's what they said"
+    },
+
+    {
+      "type": "text",
+      "id": "loved_by_label",
+      "label": "Loved by label",
+      "default": "Loved by"
+    },
+
+    {
+      "type": "text",
+      "id": "loved_by_count",
+      "label": "Loved by count",
+      "default": "—"
+    },
+
+    {
+      "type": "text",
+      "id": "loved_by_suffix",
+      "label": "Loved by suffix",
+      "default": "homes"
+    },
+
+    {
+      "type": "text",
+      "id": "rail_label",
+      "label": "Reviews accessibility label",
+      "default": "Customer reviews"
+    }
+
+  ],
+
+  "blocks": [
+
+    {
+      "type": "review",
+
+      "name": "Review",
+
+      "settings": [
+
+        {
+          "type": "metaobject",
+          "id": "review",
+          "label": "Review",
+          "metaobject_type": "review"
+        }
+
+      ]
+
+    }
+
+  ],
+
+  "presets": [
+
+    {
+      "name": "Purelane reviews",
+
+      "blocks": [
+
+        {
+          "type": "review"
+        },
+
+        {
+          "type": "review"
+        },
+
+        {
+          "type": "review"
+        },
+
+        {
+          "type": "review"
+        },
+
+        {
+          "type": "review"
+        }
+
+      ]
+
+    }
+
+  ],
+
+  "max_blocks": 12
+
+}
+
+{% endschema %}
