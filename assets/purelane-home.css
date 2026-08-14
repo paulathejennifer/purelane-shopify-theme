@@ -1,0 +1,195 @@
+/* ============================================================
+   PURELANE HOMEPAGE
+   Global visual background
+
+   This belongs to the homepage as a whole rather than to
+   individual sections such as Shop or Reviews.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   HOMEPAGE BACKGROUND
+   ------------------------------------------------------------ */
+
+.purelane-homepage {
+  position: relative;
+
+  /*
+   * The background is attached to the homepage body so every
+   * homepage section visually sits inside the same environment.
+   */
+  background:
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(255, 255, 255, 0.48) 0,
+      rgba(255, 255, 255, 0) 30%
+    ),
+    radial-gradient(
+      circle at 88% 24%,
+      rgba(255, 255, 255, 0.34) 0,
+      rgba(255, 255, 255, 0) 28%
+    ),
+    linear-gradient(
+      180deg,
+      #dceff1 0%,
+      #d8ecee 42%,
+      #dcefe8 100%
+    );
+
+  background-attachment: fixed;
+
+  color: #11101f;
+}
+
+
+/* ------------------------------------------------------------
+   KEEP THE PAGE BACKGROUND CONTINUOUS
+   ------------------------------------------------------------ */
+
+.purelane-homepage #MainContent {
+  position: relative;
+
+  background: transparent;
+}
+
+
+/*
+ * Shopify sections frequently introduce their own background.
+ * We deliberately keep the Purelane homepage transparent so
+ * the global background can visually continue behind sections.
+ */
+
+.purelane-homepage #MainContent > .shopify-section {
+  position: relative;
+
+  background: transparent;
+}
+
+
+/* ------------------------------------------------------------
+   SUBTLE ORGANIC / SVG-LIKE TEXTURE
+   ------------------------------------------------------------ */
+
+.purelane-homepage #MainContent::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  opacity: 0.28;
+
+  background:
+    radial-gradient(
+      ellipse at 18% 18%,
+      rgba(255, 255, 255, 0.5) 0,
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 82% 38%,
+      rgba(255, 255, 255, 0.35) 0,
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 42% 88%,
+      rgba(255, 255, 255, 0.3) 0,
+      transparent 34%
+    );
+
+  /*
+   * Large sizing prevents the pattern from looking like a
+   * repeated CSS texture.
+   */
+  background-size:
+    720px 520px,
+    620px 580px,
+    760px 620px;
+
+  background-position:
+    left top,
+    right center,
+    center bottom;
+}
+
+
+/* ------------------------------------------------------------
+   SECTION CONTENT ABOVE THE BACKGROUND TEXTURE
+   ------------------------------------------------------------ */
+
+.purelane-homepage #MainContent > .shopify-section {
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* ------------------------------------------------------------
+   TRANSPARENT SECTIONS
+   ------------------------------------------------------------ */
+
+.purelane-homepage .section {
+  background: transparent;
+}
+
+
+/*
+ * Some Dawn wrappers can inherit the theme's color scheme.
+ * We don't want those wrappers to create opaque rectangles
+ * between Purelane sections.
+ */
+
+.purelane-homepage .color-background,
+.purelane-homepage .gradient {
+  background-color: transparent;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   PURELANE CARDS / PANELS
+   ------------------------------------------------------------
+
+   Individual sections can still define their own cards.
+   This is intentionally NOT applied globally to every element.
+   ------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 749px) {
+
+  .purelane-homepage {
+    background-attachment: scroll;
+  }
+
+  .purelane-homepage #MainContent::before {
+    position: absolute;
+
+    opacity: 0.22;
+
+    background-size:
+      520px 420px,
+      480px 440px,
+      560px 480px;
+  }
+
+}
+
+
+/* ------------------------------------------------------------
+   REDUCED MOTION / ACCESSIBILITY
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .purelane-homepage {
+    background-attachment: scroll;
+  }
+
+}
