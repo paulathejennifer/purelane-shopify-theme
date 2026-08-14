@@ -1,0 +1,296 @@
+{% comment %}
+  Purelane Hero Section
+
+  - Homepage hero section
+  - Supports up to 3 product stages
+  - Products are selected through Shopify's product picker
+{% endcomment %}
+
+<section
+  id="Section-{{ section.id }}"
+  class="section section--purelane-hero hero"
+  aria-labelledby="HeroHeading-{{ section.id }}"
+>
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <div class="hero-copy">
+
+        {% if section.settings.kicker != blank %}
+          <p class="kicker">{{ section.settings.kicker }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h1
+            id="HeroHeading-{{ section.id }}"
+            class="d1"
+          >
+            {{ section.settings.heading | escape | newline_to_br }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.lede != blank %}
+          <p class="lede">
+            {{ section.settings.lede }}
+          </p>
+        {% endif %}
+
+        <div class="hero-cta">
+
+          {% if section.settings.primary_button_text != blank %}
+            <a
+              class="btn btn-primary"
+              href="{{ section.settings.primary_button_link }}"
+            >
+              {{ section.settings.primary_button_text }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.secondary_button_text != blank %}
+            <a
+              class="btn btn-ghost"
+              href="{{ section.settings.secondary_button_link }}"
+            >
+              {{ section.settings.secondary_button_text }}
+            </a>
+          {% endif %}
+
+        </div>
+      </div>
+
+      <div
+        class="hero-prod"
+        role="region"
+        aria-label="{{ section.settings.prod_region_label | escape }}"
+      >
+
+        <div
+          class="hstage"
+          id="hstage-{{ section.id }}"
+        >
+
+          {% for block in section.blocks %}
+
+            <div
+              class="hslide hs{{ forloop.index }} {% if forloop.first %}on{% endif %}"
+              data-block-id="{{ block.id }}"
+              {{ block.shopify_attributes }}
+            >
+
+              {% assign p = block.settings.product %}
+
+              {% if p != blank %}
+
+                <a
+                  class="hp"
+                  href="{{ p.url }}"
+                  aria-label="{{ p.title | escape }}"
+                >
+
+                  {% if p.featured_image %}
+
+                    <img
+                      src="{{ p.featured_image | image_url: width: 600 }}"
+                      alt="{{ p.featured_image.alt | default: p.title | escape }}"
+                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                      width="{{ p.featured_image.width }}"
+                      height="{{ p.featured_image.height }}"
+                    >
+
+                  {% else %}
+
+                    <span class="hp-fallback">
+                      {{ p.title | escape }}
+                    </span>
+
+                  {% endif %}
+
+                </a>
+
+              {% else %}
+
+                <div class="hp hp-placeholder">
+                  {{ block.settings.placeholder_text | escape }}
+                </div>
+
+              {% endif %}
+
+              <div class="glass-2 ptag">
+
+                <span class="lbl">
+                  {{ block.settings.tag_label | escape }}
+                </span>
+
+                <span class="val">
+
+                  {% if p != blank %}
+
+                    <strong>
+                      {{ p.price | money }}
+                    </strong>
+
+                    {% if p.compare_at_price > p.price %}
+                      <s>
+                        {{ p.compare_at_price | money }}
+                      </s>
+                    {% endif %}
+
+                  {% elsif block.settings.price_text != blank %}
+
+                    <strong>
+                      {{ block.settings.price_text | escape }}
+                    </strong>
+
+                  {% endif %}
+
+                </span>
+
+                {% if block.settings.cut_text != blank %}
+                  <span class="cut">
+                    {{ block.settings.cut_text | escape }}
+                  </span>
+                {% endif %}
+
+              </div>
+
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+        {% if section.blocks.size > 1 %}
+
+          <div
+            class="hdots"
+            id="hdots-{{ section.id }}"
+          >
+
+            {% for block in section.blocks %}
+
+              <button
+                type="button"
+                class="{% if forloop.first %}on{% endif %}"
+                data-target="{{ section.id }}-{{ block.id }}"
+                aria-label="Show product {{ forloop.index }}"
+              ></button>
+
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane hero",
+  "tag": "section",
+  "class": "purelane-hero-section",
+  "max_blocks": 3,
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "PLANT-POWERED HOMECARE"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Clean\nThat\nLasts"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Lead paragraph",
+      "default": "Homecare that works on the toughest grime, made from plants."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "How it works"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "prod_region_label",
+      "label": "Hero product region label",
+      "default": "Hero product showcase"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Hero stage",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "tag_label",
+          "label": "Label",
+          "default": "Single bottle"
+        },
+{
+  "type": "text",
+  "id": "price_text",
+  "label": "Price fallback text",
+  "default": "₹200"
+},
+{
+  "type": "text",
+  "id": "cut_text",
+  "label": "Savings text",
+  "default": "33% off"
+},
+        {
+          "type": "text",
+          "id": "placeholder_text",
+          "label": "Placeholder text",
+          "default": "Product"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Purelane hero",
+      "category": "Homepage",
+      "blocks": [
+        {
+          "type": "stage"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

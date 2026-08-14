@@ -1,5 +1,18 @@
 {
   "sections": {
+    "purelane_hero": {
+      "type": "purelane-hero",
+      "settings": {
+        "kicker": "PLANT-POWERED HOMECARE",
+        "heading": "Clean That Lasts",
+        "lede": "Homecare that works on the toughest grime, made from plants.",
+        "primary_button_text": "Shop now",
+        "primary_button_link": "/collections/all",
+        "secondary_button_text": "How it works",
+        "secondary_button_link": "#how",
+        "prod_region_label": "Hero product showcase"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -69,6 +82,7 @@
     }
   },
   "order": [
+    "purelane_hero",
     "image_banner",
     "featured_collection"
   ]
