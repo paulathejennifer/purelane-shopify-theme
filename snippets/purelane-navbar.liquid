@@ -1,0 +1,77 @@
+<header class="pl-navbar-wrap">
+  <nav class="pl-navbar" aria-label="Main navigation">
+
+    <a href="{{ routes.root_url }}" class="pl-brand">
+      <span class="pl-brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32">
+          <path d="M16 3 27 9v14l-11 6L5 23V9l11-6Z"/>
+          <path d="m10 12 6-3 6 3-6 3-6-3Z"/>
+          <path d="M16 15v9"/>
+        </svg>
+      </span>
+
+      <span class="pl-brand-text">
+        <strong>PURELANE</strong>
+        <small>CLEAN, SIMPLY</small>
+      </span>
+    </a>
+
+    <div class="pl-nav-links">
+      <a href="{{ routes.root_url }}">Home</a>
+      <a href="{{ pages['ingredients'].url | default: '/pages/ingredients' }}">
+        Ingredients
+      </a>
+      <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">
+        How it works
+      </a>
+      <a href="{{ routes.collections_url }}">Shop</a>
+      <a href="/collections/bundles">Bundles</a>
+    </div>
+
+    <div class="pl-nav-actions">
+
+      <a
+        href="{{ routes.search_url }}"
+        class="pl-nav-icon"
+        aria-label="Search"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6"/>
+          <path d="m16 16 5 5"/>
+        </svg>
+      </a>
+
+      <a
+        href="{{ routes.account_url }}"
+        class="pl-nav-icon"
+        aria-label="Account"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M5 20c.7-3.7 3.1-5.5 7-5.5s6.3 1.8 7 5.5"/>
+        </svg>
+      </a>
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="pl-nav-icon pl-cart-link"
+        aria-label="Cart"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 5h2l2 11h9l3-8H7"/>
+          <circle cx="10" cy="20" r="1.4"/>
+          <circle cx="17" cy="20" r="1.4"/>
+        </svg>
+
+        <span
+          class="pl-cart-count"
+          {% if cart.item_count == 0 %}hidden{% endif %}
+        >
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+    </div>
+
+  </nav>
+</header>

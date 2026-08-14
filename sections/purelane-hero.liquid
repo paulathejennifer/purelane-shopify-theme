@@ -1,217 +1,362 @@
 {% comment %}
-  Purelane Hero Section
-
-  - Homepage hero section
-  - Supports up to 3 product stages
-  - Products are selected through Shopify's product picker
+  PURELANE HERO
+  - Announcement ticker
+  - Custom navbar
+  - Hero background
+  - Hero heading
+  - CTA buttons
+  - Mobile horizontal benefit strip
+  - Animated 1 / 2 / 3 bottle product slides
+  - Shopify-powered product pricing
+  - Desktop vertical benefits card
+  - Progress rail (desktop)
 {% endcomment %}
 
+<link rel="stylesheet" href="{{ 'purelane-hero.css' | asset_url }}">
+
 <section
-  id="Section-{{ section.id }}"
-  class="section section--purelane-hero hero"
-  aria-labelledby="HeroHeading-{{ section.id }}"
+  id="PurelaneHero-{{ section.id }}"
+  class="pl-page"
+  aria-labelledby="PurelaneHeroHeading-{{ section.id }}"
 >
-  <div class="wrap">
-    <div class="hero-grid">
 
-      <div class="hero-copy">
+  <!-- =========================================================
+       ANNOUNCEMENT TICKER
+  ========================================================== -->
+  <div class="pl-ticker" aria-label="Purelane benefits">
+    <div class="pl-ticker-track">
+      <span>
+        {{ section.settings.ticker_one }}
+        <strong>{{ section.settings.ticker_one_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_two }}
+        <strong>{{ section.settings.ticker_two_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_three }}
+        <strong>{{ section.settings.ticker_three_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_four }}
+        <strong>{{ section.settings.ticker_four_strong }}</strong>
+      </span>
 
-        {% if section.settings.kicker != blank %}
-          <p class="kicker">{{ section.settings.kicker }}</p>
-        {% endif %}
+      <!-- Duplicate for seamless loop -->
+      <span>
+        {{ section.settings.ticker_one }}
+        <strong>{{ section.settings.ticker_one_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_two }}
+        <strong>{{ section.settings.ticker_two_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_three }}
+        <strong>{{ section.settings.ticker_three_strong }}</strong>
+      </span>
+      <span>
+        {{ section.settings.ticker_four }}
+        <strong>{{ section.settings.ticker_four_strong }}</strong>
+      </span>
+    </div>
+  </div>
 
-        {% if section.settings.heading != blank %}
-          <h1
-            id="HeroHeading-{{ section.id }}"
-            class="d1"
-          >
-            {{ section.settings.heading | escape | newline_to_br }}
-          </h1>
-        {% endif %}
 
-        {% if section.settings.lede != blank %}
-          <p class="lede">
-            {{ section.settings.lede }}
-          </p>
-        {% endif %}
+  {% render 'purelane-navbar' %}
 
-        <div class="hero-cta">
 
-          {% if section.settings.primary_button_text != blank %}
-            <a
-              class="btn btn-primary"
-              href="{{ section.settings.primary_button_link }}"
-            >
-              {{ section.settings.primary_button_text }}
-            </a>
-          {% endif %}
+  <!-- =========================================================
+       HERO
+  ========================================================== -->
+  <div class="pl-hero">
 
-          {% if section.settings.secondary_button_text != blank %}
-            <a
-              class="btn btn-ghost"
-              href="{{ section.settings.secondary_button_link }}"
-            >
-              {{ section.settings.secondary_button_text }}
-            </a>
-          {% endif %}
+    <!-- BACKGROUND -->
+    <div class="pl-bg-glow pl-bg-glow-one"></div>
+    <div class="pl-bg-glow pl-bg-glow-two"></div>
 
-        </div>
+    <svg
+      class="pl-bg-lines"
+      viewBox="0 0 1600 800"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path d="M-100 220 C250 80 400 300 650 170 S1100 100 1700 260"/>
+      <path d="M-100 360 C220 220 470 420 720 300 S1200 240 1700 380"/>
+      <path d="M-100 500 C220 390 450 540 760 430 S1200 390 1700 500"/>
+      <path d="M-100 630 C200 520 500 680 800 550 S1250 520 1700 620"/>
+    </svg>
+
+
+    <!-- =======================================================
+         LEFT CONTENT
+    ======================================================== -->
+    <div class="pl-hero-content">
+
+      <h1
+        id="PurelaneHeroHeading-{{ section.id }}"
+        class="pl-heading"
+      >
+        <span>CLEAN</span>
+        <span>THAT</span>
+        <span class="pl-heading-accent">LASTS</span>
+      </h1>
+
+      <div class="pl-divider" aria-hidden="true">
+        <span></span>
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+        </svg>
+        <span></span>
       </div>
 
-      <div
-        class="hero-prod"
-        role="region"
-        aria-label="{{ section.settings.prod_region_label | escape }}"
-      >
+      <p class="pl-lede">
+        {{ section.settings.lede }}
+      </p>
 
-        <div
-          class="hstage"
-          id="hstage-{{ section.id }}"
-        >
-
-          {% for block in section.blocks %}
-
-            <div
-              class="hslide hs{{ forloop.index }} {% if forloop.first %}on{% endif %}"
-              data-block-id="{{ block.id }}"
-              {{ block.shopify_attributes }}
-            >
-
-              {% assign p = block.settings.product %}
-
-              {% if p != blank %}
-
-                <a
-                  class="hp"
-                  href="{{ p.url }}"
-                  aria-label="{{ p.title | escape }}"
-                >
-
-                  {% if p.featured_image %}
-
-                    <img
-                      src="{{ p.featured_image | image_url: width: 600 }}"
-                      alt="{{ p.featured_image.alt | default: p.title | escape }}"
-                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                      width="{{ p.featured_image.width }}"
-                      height="{{ p.featured_image.height }}"
-                    >
-
-                  {% else %}
-
-                    <span class="hp-fallback">
-                      {{ p.title | escape }}
-                    </span>
-
-                  {% endif %}
-
-                </a>
-
-              {% else %}
-
-                <div class="hp hp-placeholder">
-                  {{ block.settings.placeholder_text | escape }}
-                </div>
-
-              {% endif %}
-
-              <div class="glass-2 ptag">
-
-                <span class="lbl">
-                  {{ block.settings.tag_label | escape }}
-                </span>
-
-                <span class="val">
-
-                  {% if p != blank %}
-
-                    <strong>
-                      {{ p.price | money }}
-                    </strong>
-
-                    {% if p.compare_at_price > p.price %}
-                      <s>
-                        {{ p.compare_at_price | money }}
-                      </s>
-                    {% endif %}
-
-                  {% elsif block.settings.price_text != blank %}
-
-                    <strong>
-                      {{ block.settings.price_text | escape }}
-                    </strong>
-
-                  {% endif %}
-
-                </span>
-
-                {% if block.settings.cut_text != blank %}
-                  <span class="cut">
-                    {{ block.settings.cut_text | escape }}
-                  </span>
-                {% endif %}
-
-              </div>
-
-            </div>
-
-          {% endfor %}
-
-        </div>
-
-        {% if section.blocks.size > 1 %}
-
-          <div
-            class="hdots"
-            id="hdots-{{ section.id }}"
+      <div class="pl-cta">
+        {% if section.settings.primary_button_text != blank %}
+          <a
+            href="{{ section.settings.primary_button_link | default: routes.collections_url }}"
+            class="pl-button pl-button-primary"
           >
-
-            {% for block in section.blocks %}
-
-              <button
-                type="button"
-                class="{% if forloop.first %}on{% endif %}"
-                data-target="{{ section.id }}-{{ block.id }}"
-                aria-label="Show product {{ forloop.index }}"
-              ></button>
-
-            {% endfor %}
-
-          </div>
-
+            {{ section.settings.primary_button_text }}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h13"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </a>
         {% endif %}
 
+        {% if section.settings.secondary_button_text != blank %}
+          <a
+            href="{{ section.settings.secondary_button_link | default: '#how' }}"
+            class="pl-button pl-button-secondary"
+          >
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+
+
+      <!-- =====================================================
+           MOBILE BENEFIT STRIP
+           (horizontal – matches reference .badgestrip)
+      ====================================================== -->
+      <div class="pl-mobile-benefits" aria-hidden="true">
+        <div class="pl-mobile-benefit">
+          <span class="pl-mobile-benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+              <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+            </svg>
+          </span>
+          <span>Plant powered</span>
+        </div>
+
+        <div class="pl-mobile-benefit">
+          <span class="pl-mobile-benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
+              <path d="m9 12 2.2 2.2L15.4 10"/>
+            </svg>
+          </span>
+          <span>Safe for kids &amp; pets</span>
+        </div>
+
+        <div class="pl-mobile-benefit">
+          <span class="pl-mobile-benefit-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8.4"/>
+              <path d="M6.4 17.6 17.6 6.4"/>
+            </svg>
+          </span>
+          <span>Zero harsh chemicals</span>
+        </div>
       </div>
 
     </div>
+
+
+    <!-- =======================================================
+         PRODUCT AREA
+    ======================================================== -->
+    <div
+      class="pl-product-area"
+      aria-label="{{ section.settings.prod_region_label | escape }}"
+    >
+
+      {% for block in section.blocks %}
+        {% assign selected_product = block.settings.product %}
+
+        {% case forloop.index %}
+          {% when 1 %}
+            {% assign default_label = 'ANY 1 PRODUCT' %}
+          {% when 2 %}
+            {% assign default_label = 'ANY 2 PRODUCTS' %}
+          {% when 3 %}
+            {% assign default_label = 'ANY 3 PRODUCTS' %}
+          {% else %}
+            {% assign default_label = 'PRODUCT BUNDLE' %}
+        {% endcase %}
+
+        <div
+          class="pl-product-slide{% if forloop.first %} is-active{% endif %}"
+          data-slide-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+
+          <!-- BOTTLES -->
+          <div class="pl-bottle-stage pl-bottle-count-{{ block.settings.bottle_count }}">
+            {% for i in (1..block.settings.bottle_count) %}
+              <div class="pl-bottle pl-bottle-{{ i }}">
+                <svg
+                  class="pl-bottle-svg"
+                  viewBox="0 0 180 520"
+                  role="img"
+                  aria-label="Purelane product bottle"
+                >
+                  <rect x="68" y="20" width="44" height="65" rx="9" class="pl-svg-pump"/>
+                  <rect x="78" y="78" width="24" height="60" rx="3" class="pl-svg-pump-stem"/>
+                  <path
+                    class="pl-svg-body"
+                    d="M58 120 C58 108 67 98 79 98 H101 C113 98 122 108 122 120 V145 C145 153 153 168 153 190 V442 C153 460 140 475 122 478 H58 C40 475 27 460 27 442 V190 C27 168 35 153 58 145 Z"
+                  />
+                  <path
+                    class="pl-svg-highlight"
+                    d="M47 178 C47 164 54 155 67 151 V438 C67 448 61 455 50 455 C43 455 38 450 38 441 V193 C38 187 41 182 47 178 Z"
+                  />
+                  <rect x="43" y="250" width="94" height="145" rx="8" class="pl-svg-label"/>
+                  <rect x="69" y="280" width="42" height="7" rx="3" class="pl-svg-label-line"/>
+                  <text x="90" y="320" text-anchor="middle" class="pl-svg-brand">PURELANE</text>
+                  <text x="90" y="340" text-anchor="middle" class="pl-svg-homecare">HOMECARE</text>
+                  <line x1="64" y1="360" x2="116" y2="360" class="pl-svg-label-divider"/>
+                  <text x="90" y="378" text-anchor="middle" class="pl-svg-clean">CLEAN</text>
+                </svg>
+              </div>
+            {% endfor %}
+          </div>
+
+
+          <!-- DESKTOP VERTICAL BENEFIT CARD -->
+          <div class="pl-benefit-card">
+            <div class="pl-benefit-item">
+              <span class="pl-benefit-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+                  <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+                </svg>
+              </span>
+              <span>PLANT<br>POWERED</span>
+            </div>
+
+            <div class="pl-benefit-divider"></div>
+
+            <div class="pl-benefit-item">
+              <span class="pl-benefit-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z"/>
+                  <path d="m9 12 2.2 2.2L15.4 10"/>
+                </svg>
+              </span>
+              <span>SAFE FOR<br>KIDS &amp; PETS</span>
+            </div>
+
+            <div class="pl-benefit-divider"></div>
+
+            <div class="pl-benefit-item">
+              <span class="pl-benefit-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="8.4"/>
+                  <path d="M6.4 17.6 17.6 6.4"/>
+                </svg>
+              </span>
+              <span>ZERO HARSH<br>CHEMICALS</span>
+            </div>
+          </div>
+
+
+          <!-- PRICE CARD -->
+          <div class="pl-price-card">
+            <span class="pl-price-label">
+              {{ block.settings.tag_label | default: default_label }}
+            </span>
+
+            {% if selected_product != blank %}
+              <div class="pl-price">
+                <strong>{{ selected_product.price | money }}</strong>
+                {% if selected_product.compare_at_price > selected_product.price %}
+                  <s>{{ selected_product.compare_at_price | money }}</s>
+                {% endif %}
+              </div>
+
+              {% if selected_product.compare_at_price > selected_product.price %}
+                {% assign savings = selected_product.compare_at_price | minus: selected_product.price %}
+                <span class="pl-saving">SAVE {{ savings | money }}</span>
+              {% elsif block.settings.savings_text != blank %}
+                <span class="pl-saving">{{ block.settings.savings_text }}</span>
+              {% endif %}
+            {% else %}
+              <div class="pl-price">
+                <strong>{{ block.settings.fallback_price }}</strong>
+                {% if block.settings.fallback_compare != blank %}
+                  <s>{{ block.settings.fallback_compare }}</s>
+                {% endif %}
+              </div>
+              {% if block.settings.savings_text != blank %}
+                <span class="pl-saving">{{ block.settings.savings_text }}</span>
+              {% endif %}
+            {% endif %}
+          </div>
+
+        </div>
+      {% endfor %}
+
+
+      <!-- PRODUCT DOTS -->
+      {% if section.blocks.size > 1 %}
+        <div
+          class="pl-product-dots"
+          role="tablist"
+          aria-label="Product bundles"
+        >
+          {% for block in section.blocks %}
+            <button
+              type="button"
+              class="pl-product-dot{% if forloop.first %} is-active{% endif %}"
+              data-product-index="{{ forloop.index0 }}"
+              aria-label="Show {{ block.settings.tag_label | default: 'product bundle' }}"
+              aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+              role="tab"
+            ></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
   </div>
+
+
+  <!-- =========================================================
+       PROGRESS RAIL (desktop only)
+  ========================================================== -->
+  {% render 'purelane-progress', section: section %}
+
 </section>
+
+<script src="{{ 'purelane-hero.js' | asset_url }}" defer></script>
+
 
 {% schema %}
 {
-  "name": "Purelane hero",
-  "tag": "section",
-  "class": "purelane-hero-section",
-  "max_blocks": 3,
-
+  "name": "Purelane Hero",
   "settings": [
-    {
-      "type": "text",
-      "id": "kicker",
-      "label": "Kicker",
-      "default": "PLANT-POWERED HOMECARE"
-    },
-    {
-      "type": "textarea",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Clean\nThat\nLasts"
-    },
     {
       "type": "textarea",
       "id": "lede",
-      "label": "Lead paragraph",
-      "default": "Homecare that works on the toughest grime, made from plants."
+      "label": "Hero description",
+      "default": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it."
     },
     {
       "type": "text",
@@ -238,56 +383,143 @@
     {
       "type": "text",
       "id": "prod_region_label",
-      "label": "Hero product region label",
+      "label": "Product region label",
       "default": "Hero product showcase"
+    },
+    {
+      "type": "header",
+      "content": "Announcement ticker"
+    },
+    {
+      "type": "text",
+      "id": "ticker_one",
+      "label": "Ticker 1",
+      "default": "100% PLANT-BASED"
+    },
+    {
+      "type": "text",
+      "id": "ticker_one_strong",
+      "label": "Ticker 1 highlighted text",
+      "default": "AND NON-TOXIC"
+    },
+    {
+      "type": "text",
+      "id": "ticker_two",
+      "label": "Ticker 2",
+      "default": "LOVED BY"
+    },
+    {
+      "type": "text",
+      "id": "ticker_two_strong",
+      "label": "Ticker 2 highlighted text",
+      "default": "30,000+ HAPPY HOMES"
+    },
+    {
+      "type": "text",
+      "id": "ticker_three",
+      "label": "Ticker 3",
+      "default": "BUY 3 ·"
+    },
+    {
+      "type": "text",
+      "id": "ticker_three_strong",
+      "label": "Ticker 3 highlighted text",
+      "default": "FLAT ₹499"
+    },
+    {
+      "type": "text",
+      "id": "ticker_four",
+      "label": "Ticker 4",
+      "default": "FREE SHIPPING ON"
+    },
+    {
+      "type": "text",
+      "id": "ticker_four_strong",
+      "label": "Ticker 4 highlighted text",
+      "default": "EVERY BUNDLE ACROSS INDIA"
     }
   ],
-
   "blocks": [
     {
       "type": "stage",
-      "name": "Hero stage",
+      "name": "Hero product",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "Shopify product / bundle"
+        },
+        {
+          "type": "range",
+          "id": "bottle_count",
+          "label": "Number of bottles",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 1
         },
         {
           "type": "text",
           "id": "tag_label",
-          "label": "Label",
-          "default": "Single bottle"
+          "label": "Price label",
+          "default": "ANY 1 PRODUCT"
         },
-{
-  "type": "text",
-  "id": "price_text",
-  "label": "Price fallback text",
-  "default": "₹200"
-},
-{
-  "type": "text",
-  "id": "cut_text",
-  "label": "Savings text",
-  "default": "33% off"
-},
         {
           "type": "text",
-          "id": "placeholder_text",
-          "label": "Placeholder text",
-          "default": "Product"
+          "id": "savings_text",
+          "label": "Fallback savings text",
+          "default": "SAVE ₹99"
+        },
+        {
+          "type": "text",
+          "id": "fallback_price",
+          "label": "Fallback price",
+          "default": "₹200"
+        },
+        {
+          "type": "text",
+          "id": "fallback_compare",
+          "label": "Fallback compare-at price",
+          "default": "₹299"
         }
       ]
     }
   ],
-
+  "max_blocks": 3,
   "presets": [
     {
-      "name": "Purelane hero",
+      "name": "Purelane Hero",
       "category": "Homepage",
       "blocks": [
         {
-          "type": "stage"
+          "type": "stage",
+          "settings": {
+            "bottle_count": 1,
+            "tag_label": "ANY 1 PRODUCT",
+            "savings_text": "SAVE ₹99",
+            "fallback_price": "₹200",
+            "fallback_compare": "₹299"
+          }
+        },
+        {
+          "type": "stage",
+          "settings": {
+            "bottle_count": 2,
+            "tag_label": "ANY 2 PRODUCTS",
+            "savings_text": "SAVE ₹149",
+            "fallback_price": "₹349",
+            "fallback_compare": "₹498"
+          }
+        },
+        {
+          "type": "stage",
+          "settings": {
+            "bottle_count": 3,
+            "tag_label": "ANY 3 PRODUCTS",
+            "savings_text": "SAVE ₹398",
+            "fallback_price": "₹499",
+            "fallback_compare": "₹897"
+          }
         }
       ]
     }

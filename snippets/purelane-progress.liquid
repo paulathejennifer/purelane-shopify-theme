@@ -1,0 +1,37 @@
+<nav
+  class="pl-rail"
+  aria-label="Page sections"
+  data-purelane-progress
+>
+  <a
+    href="#PurelaneHero-{{ section.id }}"
+    class="pl-rail-dot is-active"
+    data-progress-target="PurelaneHero-{{ section.id }}"
+    aria-label="Hero"
+    aria-current="true"
+  ></a>
+
+  <a
+    href="/pages/ingredients"
+    class="pl-rail-dot"
+    aria-label="Ingredients"
+  ></a>
+
+  <a
+    href="/pages/how-it-works"
+    class="pl-rail-dot"
+    aria-label="How it works"
+  ></a>
+
+  <a
+    href="{{ routes.collections_url }}"
+    class="pl-rail-dot"
+    aria-label="Shop"
+  ></a>
+
+  <a
+    href="/collections/bundles"
+    class="pl-rail-dot"
+    aria-label="Bundles"
+  ></a>
+</nav>
