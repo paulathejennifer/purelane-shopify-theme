@@ -1,5 +1,12 @@
 /* ============================================================
    PURELANE — BEST SELLING COMBOS
+   COMBO SECTION ONLY
+
+   IMPORTANT:
+   This section owns its card sizing and card presentation.
+
+   The shared offer-card component should NOT control
+   combo card content, dimensions, or layout.
    ============================================================ */
 
 .pl-combos {
@@ -9,20 +16,7 @@
   --pl-purple-light: #6b55b8;
 
   --pl-teal: #007b73;
-  --pl-teal-dark: #006b64;
-
   --pl-gold: #b8701c;
-  --pl-gold-bright: #f0a03c;
-
-  --pl-glass:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.76),
-      rgba(236, 230, 247, 0.48)
-    );
-
-  --pl-glass-border:
-    rgba(75, 58, 143, 0.18);
 
   position: relative;
 
@@ -36,7 +30,8 @@
 
   background: transparent;
 
-  color: var(--pl-ink);
+  color:
+    var(--pl-ink);
 
   isolation: isolate;
 }
@@ -84,7 +79,8 @@
       1180px
     );
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 }
 
 
@@ -94,36 +90,41 @@
 
 .pl-combos__heading {
 
-  max-width: 760px;
+  max-width:
+    760px;
 
   margin:
-    0 auto
-    34px;
+    0 auto 34px;
 
-  text-align: center;
+  text-align:
+    center;
 }
 
 
 .pl-combos__eyebrow {
 
   margin:
-    0 0
-    14px;
+    0 0 14px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 11px;
+  font-size:
+    11px;
 
-  line-height: 1.2;
+  line-height:
+    1.2;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  letter-spacing: 0.22em;
+  letter-spacing:
+    0.22em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
   color:
     rgba(36, 26, 61, 0.60);
@@ -132,7 +133,8 @@
 
 .pl-combos__title {
 
-  margin: 0;
+  margin:
+    0;
 
   font-family:
     "Outfit",
@@ -140,20 +142,19 @@
     sans-serif;
 
   font-size:
-    clamp(
-      42px,
-      6vw,
-      60px
-    );
+    clamp(42px, 6vw, 60px);
 
-  line-height: 0.94;
+  line-height:
+    0.94;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
   letter-spacing:
     -0.055em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
   color:
     var(--pl-ink);
@@ -166,19 +167,23 @@
 
 .pl-combos__divider {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  width: 170px;
+  width:
+    170px;
 
-  gap: 12px;
+  gap:
+    12px;
 
   margin:
-    18px auto
-    15px;
+    18px auto 15px;
 
   color:
     var(--pl-gold);
@@ -187,9 +192,11 @@
 
 .pl-combos__divider > span {
 
-  flex: 1;
+  flex:
+    1;
 
-  height: 1px;
+  height:
+    1px;
 
   background:
     rgba(75, 58, 143, 0.20);
@@ -198,17 +205,21 @@
 
 .pl-combos__divider svg {
 
-  width: 17px;
+  width:
+    17px;
 
-  height: 17px;
+  height:
+    17px;
 
-  flex: 0 0 17px;
+  flex:
+    0 0 17px;
 }
 
 
 .pl-combos__description {
 
-  max-width: 590px;
+  max-width:
+    590px;
 
   margin:
     0 auto;
@@ -218,11 +229,11 @@
     system-ui,
     sans-serif;
 
-  font-size: 16px;
+  font-size:
+    16px;
 
-  line-height: 1.55;
-
-  font-weight: 400;
+  line-height:
+    1.55;
 
   color:
     rgba(36, 26, 61, 0.68);
@@ -235,29 +246,36 @@
 
 .pl-combos__viewport {
 
-  width: 100%;
+  width:
+    100%;
 
-  overflow-x: auto;
+  overflow-x:
+    auto;
 
-  overflow-y: visible;
+  overflow-y:
+    visible;
 
-  scroll-snap-type: x mandatory;
+  scroll-snap-type:
+    x mandatory;
 
-  scrollbar-width: none;
+  scrollbar-width:
+    none;
 
-  overscroll-behavior-x: contain;
+  overscroll-behavior-x:
+    contain;
 
   padding:
-    4px
-    2px
-    16px;
+    8px 4px 18px;
 
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling:
+    touch;
 }
 
 
 .pl-combos__viewport::-webkit-scrollbar {
-  display: none;
+
+  display:
+    none;
 }
 
 
@@ -267,186 +285,165 @@
 
 .pl-combos__track {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: stretch;
+  align-items:
+    stretch;
 
-  gap: 14px;
+  gap:
+    16px;
 
-  width: max-content;
+  width:
+    max-content;
 }
 
 
 /* ============================================================
-   CARD
+   COMBO CARD
+   ============================================================
+
+   THIS IS WHERE COMBO-SPECIFIC SIZE LIVES.
+
+   Combos can have many cards, therefore they remain compact.
+
+   Bundles will NOT inherit this.
    ============================================================ */
 
 .pl-combo-card {
 
-  position: relative;
+  position:
+    relative;
 
-  display: flex;
+  flex:
+    0 0 300px;
 
-  flex-direction: column;
+  width:
+    300px;
 
-  width: 300px;
+  min-height:
+    100%;
 
-  min-width: 300px;
+  display:
+    flex;
 
-  min-height: 445px;
+  flex-direction:
+    column;
 
-  scroll-snap-align: start;
+  scroll-snap-align:
+    start;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   border:
     1px solid
-    var(--pl-glass-border);
+    rgba(255, 255, 255, 0.48);
 
-  border-radius: 25px;
+  border-radius:
+    26px;
 
   background:
-    var(--pl-glass);
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.48),
+      rgba(235, 242, 239, 0.28)
+    );
 
   box-shadow:
-    0 20px 48px rgba(58, 44, 112, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.90);
+    0 16px 40px
+    rgba(47, 38, 73, 0.08);
 
   backdrop-filter:
-    blur(24px)
-    saturate(145%);
+    blur(18px);
 
   -webkit-backdrop-filter:
-    blur(24px)
-    saturate(145%);
-
-  transition:
-    transform 220ms ease,
-    box-shadow 220ms ease;
+    blur(18px);
 }
 
 
-.pl-combo-card:hover {
-
-  transform:
-    translateY(-4px);
-
-  box-shadow:
-    0 27px 58px rgba(58, 44, 112, 0.17),
-    inset 0 1px 0 rgba(255, 255, 255, 0.96);
-}
-
-
-/* ============================================================
-   FEATURED CARD
-   ============================================================ */
+/* FEATURED COMBO */
 
 .pl-combo-card--featured {
 
   border-color:
-    rgba(184, 112, 28, 0.62);
+    rgba(184, 112, 28, 0.58);
 
   box-shadow:
-    0 24px 54px rgba(58, 44, 112, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.94);
-}
-
-
-.pl-combo-card--featured .pl-combo-card__button {
-
-  background:
-    var(--pl-teal);
-
-  border-color:
-    var(--pl-teal);
-
-  color: #ffffff;
-}
-
-
-.pl-combo-card--featured:hover .pl-combo-card__button {
-
-  background:
-    var(--pl-teal-dark);
-
-  border-color:
-    var(--pl-teal-dark);
+    0 18px 46px
+    rgba(47, 38, 73, 0.12);
 }
 
 
 /* ============================================================
-   TOP
+   CARD TOP
    ============================================================ */
 
 .pl-combo-card__top {
 
-  position: absolute;
+  display:
+    flex;
 
-  top: 12px;
+  align-items:
+    center;
 
-  left: 13px;
+  justify-content:
+    space-between;
 
-  right: 13px;
+  gap:
+    8px;
 
-  z-index: 5;
+  min-height:
+    48px;
 
-  display: flex;
-
-  align-items: flex-start;
-
-  justify-content: space-between;
-
-  gap: 8px;
-
-  pointer-events: none;
+  padding:
+    14px 14px 4px;
 }
 
 
 .pl-combo-card__saving,
 .pl-combo-card__badge {
 
-  display: inline-flex;
+  display:
+    inline-flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  min-height: 27px;
+  min-height:
+    27px;
 
   padding:
-    0 11px;
+    5px 10px;
 
-  border:
-    1px solid
-    rgba(184, 112, 28, 0.38);
-
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.76);
-
-  backdrop-filter:
-    blur(12px);
-
-  -webkit-backdrop-filter:
-    blur(12px);
+  border-radius:
+    999px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 9px;
+  font-size:
+    9px;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
-  letter-spacing: 0.10em;
+  letter-spacing:
+    0.08em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  white-space: nowrap;
+  white-space:
+    nowrap;
 }
 
 
@@ -454,21 +451,27 @@
 
   color:
     var(--pl-gold);
+
+  border:
+    1px solid
+    rgba(184, 112, 28, 0.45);
+
+  background:
+    rgba(255, 255, 255, 0.42);
 }
 
 
 .pl-combo-card__badge {
 
-  margin-left: auto;
-
-  border-color:
-    var(--pl-teal);
+  color:
+    #ffffff;
 
   background:
     var(--pl-teal);
 
-  color:
-    #ffffff;
+  border:
+    1px solid
+    rgba(0, 123, 115, 0.25);
 }
 
 
@@ -478,158 +481,176 @@
 
 .pl-combo-card__products {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: flex-start;
+  align-items:
+    flex-start;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 7px;
+  gap:
+    5px;
 
-  min-height: 168px;
+  min-height:
+    126px;
 
   padding:
-    48px
-    10px
-    16px;
-
-  border-bottom:
-    1px solid
-    rgba(75, 58, 143, 0.10);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,0.50),
-      rgba(236,230,247,0.24)
-    );
+    8px 12px 14px;
 }
 
 
 .pl-combo-product {
 
-  display: flex;
+  flex:
+    1 1 0;
 
-  flex-direction: column;
+  min-width:
+    0;
 
-  align-items: center;
+  max-width:
+    78px;
 
-  min-width: 0;
-
-  width: 72px;
+  text-align:
+    center;
 }
 
 
 .pl-combo-product__image-wrap {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  width: 64px;
+  width:
+    100%;
 
-  height: 78px;
+  height:
+    78px;
+
+  overflow:
+    hidden;
+
+  background:
+    rgba(255, 255, 255, 0.46);
 }
 
 
 .pl-combo-product__image {
 
-  display: block;
+  display:
+    block;
 
-  width: 100%;
+  width:
+    100%;
 
-  height: 100%;
+  height:
+    100%;
 
-  object-fit: contain;
-}
-
-
-.pl-combo-product__fallback {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 52px;
-
-  height: 68px;
-
-  border-radius: 8px;
-
-  background:
-    rgba(107, 85, 184, 0.20);
-
-  font-family:
-    "Outfit",
-    system-ui,
-    sans-serif;
-
-  font-size: 6px;
-
-  font-weight: 800;
-
-  letter-spacing: 0.08em;
-
-  color:
-    var(--pl-purple);
+  object-fit:
+    contain;
 }
 
 
 .pl-combo-product__title {
 
-  width: 100%;
+  display:
+    -webkit-box;
 
-  margin-top: 3px;
+  margin:
+    6px 0 0;
 
-  overflow: hidden;
-
-  text-align: center;
+  overflow:
+    hidden;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 9px;
+  font-size:
+    9px;
 
-  line-height: 1.25;
+  line-height:
+    1.25;
 
   color:
-    rgba(36, 26, 61, 0.64);
+    rgba(36, 26, 61, 0.65);
 
-  display: -webkit-box;
+  -webkit-line-clamp:
+    2;
 
-  -webkit-box-orient: vertical;
-
-  -webkit-line-clamp: 2;
-
-  text-overflow: ellipsis;
-
-  overflow-wrap: anywhere;
+  -webkit-box-orient:
+    vertical;
 }
 
 
 .pl-combo-product__plus {
 
-  flex: 0 0 auto;
+  flex:
+    0 0 auto;
 
-  margin-top: 35px;
+  margin-top:
+    34px;
 
   font-family:
-    "Outfit",
+    "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 15px;
+  font-size:
+    12px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
   color:
     var(--pl-gold);
+}
+
+
+.pl-combo-product__fallback {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    100%;
+
+  height:
+    78px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    8px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.12em;
+
+  color:
+    rgba(75, 58, 143, 0.45);
+
+  background:
+    rgba(255, 255, 255, 0.35);
 }
 
 
@@ -639,82 +660,81 @@
 
 .pl-combo-card__content {
 
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex:
+    1;
 
-  flex: 1;
+  flex-direction:
+    column;
 
   padding:
-    16px;
+    18px 16px 16px;
+
+  border-top:
+    1px solid
+    rgba(75, 58, 143, 0.12);
 }
 
 
 .pl-combo-card__title {
 
   margin:
-    0
-    0
-    6px;
+    0 0 4px;
 
   font-family:
     "Outfit",
     system-ui,
     sans-serif;
 
-  font-size: 17px;
+  font-size:
+    20px;
 
-  line-height: 1.08;
+  line-height:
+    1;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
   letter-spacing:
     -0.025em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
   color:
     var(--pl-ink);
-
-  display: -webkit-box;
-
-  -webkit-box-orient: vertical;
-
-  -webkit-line-clamp: 2;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
-  overflow-wrap: anywhere;
 }
 
 
 .pl-combo-card__count {
 
   margin:
-    0
-    0
-    12px;
+    0 0 12px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 10px;
+  font-size:
+    9px;
 
-  line-height: 1.2;
+  line-height:
+    1.2;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
   letter-spacing:
-    0.16em;
+    0.12em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
   color:
-    rgba(36, 26, 61, 0.50);
+    rgba(36, 26, 61, 0.48);
 }
 
 
@@ -724,84 +744,53 @@
 
 .pl-combo-card__includes {
 
-  display: block;
-
-  width: 100%;
-
-  min-width: 0;
-
   margin:
-    0
-    0
-    14px;
+    0 0 16px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 12px;
+  font-size:
+    11px;
 
-  line-height: 1.5;
+  line-height:
+    1.45;
 
   color:
-    rgba(36, 26, 61, 0.68);
-
-  cursor: help;
+    rgba(36, 26, 61, 0.64);
 }
 
 
 .pl-combo-card__includes-label {
 
-  font-weight: 600;
+  font-weight:
+    700;
 
-  white-space: nowrap;
-}
-
-
-.pl-combo-card__includes-products {
-
-  display: inline;
-
-  min-width: 0;
+  color:
+    rgba(36, 26, 61, 0.72);
 }
 
 
 .pl-combo-card__included-product {
 
-  display: inline;
-
-  overflow-wrap: anywhere;
+  display:
+    inline;
 }
 
 
 .pl-combo-card__included-separator {
 
-  display: inline;
+  margin-right:
+    2px;
 }
 
 
 .pl-combo-card__included-more {
 
-  display: inline;
-
-  font-weight: 800;
-
-  letter-spacing: 0.08em;
-}
-
-
-/*
-  Long individual product names are safely clipped.
-  The complete list is still available on hover through
-  the parent Includes title attribute.
-*/
-
-.pl-combo-card__included-product {
-
-  max-width: 100%;
-
-  overflow-wrap: anywhere;
+  margin-left:
+    2px;
 }
 
 
@@ -811,17 +800,20 @@
 
 .pl-combo-card__pricing {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    baseline;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
-  gap: 8px;
+  gap:
+    6px;
 
-  margin-top: auto;
-
-  margin-bottom: 8px;
+  margin-top:
+    auto;
 }
 
 
@@ -832,14 +824,14 @@
     system-ui,
     sans-serif;
 
-  font-size: 25px;
+  font-size:
+    27px;
 
-  line-height: 1;
+  line-height:
+    1;
 
-  font-weight: 800;
-
-  letter-spacing:
-    -0.035em;
+  font-weight:
+    800;
 
   color:
     var(--pl-ink);
@@ -853,79 +845,69 @@
     system-ui,
     sans-serif;
 
-  font-size: 12px;
-
-  text-decoration: line-through;
+  font-size:
+    11px;
 
   color:
-    rgba(36, 26, 61, 0.45);
+    rgba(36, 26, 61, 0.42);
+
+  text-decoration:
+    line-through;
 }
 
 
 .pl-combo-card__discount {
 
-  display: inline-flex;
-
-  align-items: center;
-
-  min-height: 24px;
+  display:
+    inline-flex;
 
   padding:
-    0 9px;
+    4px 7px;
 
   border:
     1px solid
-    rgba(184, 112, 28, 0.35);
+    rgba(184, 112, 28, 0.38);
 
-  border-radius: 999px;
-
-  background:
-    rgba(184, 112, 28, 0.07);
+  border-radius:
+    999px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 9px;
+  font-size:
+    8px;
 
-  font-weight: 800;
+  font-weight:
+    800;
 
   letter-spacing:
-    0.08em;
-
-  text-transform: uppercase;
+    0.04em;
 
   color:
     var(--pl-gold);
 }
 
 
-/* ============================================================
-   TAX / PAYMENT NOTE
-   ============================================================ */
-
 .pl-combo-card__tax-note {
 
   margin:
-    0
-    0
-    18px;
-
-  padding:
-    0;
+    5px 0 13px;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 9px;
+  font-size:
+    8px;
 
-  line-height: 1.35;
+  line-height:
+    1.3;
 
   color:
-    rgba(36, 26, 61, 0.48);
+    rgba(36, 26, 61, 0.43);
 }
 
 
@@ -935,67 +917,65 @@
 
 .pl-combo-card__button {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 12px;
+  gap:
+    9px;
 
-  width: 100%;
+  min-height:
+    44px;
 
-  min-height: 45px;
+  padding:
+    0 16px;
 
   border:
-    1px solid
-    rgba(75, 58, 143, 0.18);
+    0;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
   background:
     rgba(255, 255, 255, 0.70);
 
-  backdrop-filter:
-    blur(12px);
-
-  -webkit-backdrop-filter:
-    blur(12px);
+  color:
+    var(--pl-teal);
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 11px;
+  font-size:
+    10px;
 
-  line-height: 1;
-
-  font-weight: 800;
+  font-weight:
+    800;
 
   letter-spacing:
     0.14em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  text-decoration: none;
-
-  color:
-    var(--pl-teal);
+  text-decoration:
+    none;
 
   transition:
     background 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease;
+    transform 180ms ease;
 }
 
 
-.pl-combo-card__button:hover {
+.pl-combo-card--featured .pl-combo-card__button {
 
   background:
-    var(--pl-teal);
-
-  border-color:
     var(--pl-teal);
 
   color:
@@ -1003,11 +983,30 @@
 }
 
 
+.pl-combo-card__button:hover {
+
+  transform:
+    translateY(-1px);
+
+  background:
+    rgba(255, 255, 255, 0.9);
+}
+
+
+.pl-combo-card--featured .pl-combo-card__button:hover {
+
+  background:
+    #006d66;
+}
+
+
 .pl-combo-card__button-arrow {
 
-  font-size: 18px;
+  font-size:
+    14px;
 
-  line-height: 0;
+  line-height:
+    1;
 }
 
 
@@ -1017,76 +1016,111 @@
 
 .pl-combos__controls {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 12px;
+  gap:
+    12px;
 
-  margin-top: 10px;
+  margin-top:
+    10px;
 }
 
 
 .pl-combos__arrow {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  width: 28px;
+  width:
+    28px;
 
-  height: 28px;
+  height:
+    28px;
 
-  padding: 0;
+  padding:
+    0;
 
-  border: 0;
+  border:
+    0;
 
-  background: transparent;
+  background:
+    transparent;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 16px;
+  font-size:
+    16px;
 
   color:
     rgba(36, 26, 61, 0.55);
 
-  cursor: pointer;
+  cursor:
+    pointer;
 }
 
 
+.pl-combos__arrow:hover {
+
+  color:
+    var(--pl-teal);
+}
+
+
+/* ============================================================
+   DOTS
+   ============================================================ */
+
 .pl-combos__dots {
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 7px;
+  gap:
+    7px;
 }
 
 
 .pl-combos__dot {
 
-  width: 7px;
+  width:
+    7px;
 
-  height: 7px;
+  height:
+    7px;
 
-  padding: 0;
+  padding:
+    0;
 
-  border: 0;
+  border:
+    0;
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   background:
     rgba(75, 58, 143, 0.28);
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
   transition:
     transform 180ms ease,
@@ -1111,27 +1145,27 @@
 .pl-combos__swipe {
 
   margin:
-    5px
-    0
-    0;
+    5px 0 0;
 
-  text-align: center;
+  text-align:
+    center;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 10px;
+  font-size:
+    10px;
 
-  line-height: 1.3;
-
-  font-weight: 700;
+  font-weight:
+    700;
 
   letter-spacing:
     0.18em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
   color:
     rgba(36, 26, 61, 0.48);
@@ -1140,7 +1174,8 @@
 
 .pl-combos__swipe span {
 
-  margin-right: 5px;
+  margin-right:
+    5px;
 
   color:
     var(--pl-gold);
@@ -1153,23 +1188,25 @@
 
 .pl-combos__bottom-note {
 
-  max-width: 600px;
+  max-width:
+    600px;
 
   margin:
-    15px
-    auto
-    0;
+    15px auto 0;
 
-  text-align: center;
+  text-align:
+    center;
 
   font-family:
     "Inter",
     system-ui,
     sans-serif;
 
-  font-size: 11px;
+  font-size:
+    11px;
 
-  line-height: 1.5;
+  line-height:
+    1.5;
 
   color:
     rgba(36, 26, 61, 0.48);
@@ -1182,18 +1219,21 @@
 
 .pl-combos__empty {
 
-  padding: 40px;
+  padding:
+    40px;
 
   border:
     1px dashed
     rgba(75, 58, 143, 0.22);
 
-  border-radius: 22px;
+  border-radius:
+    22px;
 
   background:
     rgba(236, 230, 247, 0.18);
 
-  text-align: center;
+  text-align:
+    center;
 
   font-family:
     "Inter",
@@ -1206,22 +1246,6 @@
 
 
 /* ============================================================
-   TABLET
-   ============================================================ */
-
-@media (max-width: 900px) {
-
-  .pl-combo-card {
-
-    width: 290px;
-
-    min-width: 290px;
-  }
-
-}
-
-
-/* ============================================================
    MOBILE
    ============================================================ */
 
@@ -1230,8 +1254,7 @@
   .pl-combos {
 
     padding:
-      45px 0
-      20px;
+      45px 0 20px;
   }
 
 
@@ -1244,35 +1267,22 @@
 
   .pl-combos__heading {
 
-    margin-bottom: 25px;
-  }
-
-
-  .pl-combos__eyebrow {
-
-    font-size: 9px;
-
-    letter-spacing:
-      0.18em;
+    margin-bottom:
+      25px;
   }
 
 
   .pl-combos__title {
 
     font-size:
-      clamp(
-        38px,
-        11vw,
-        52px
-      );
+      clamp(38px, 11vw, 52px);
   }
 
 
   .pl-combos__description {
 
-    font-size: 14px;
-
-    line-height: 1.5;
+    font-size:
+      14px;
   }
 
 
@@ -1294,47 +1304,12 @@
 
   .pl-combo-card {
 
+    flex-basis:
+      282px;
+
     width:
-      calc(100vw - 48px);
-
-    min-width:
-      calc(100vw - 48px);
-
-    min-height:
-      440px;
-
-    border-radius:
-      22px;
+      282px;
   }
-
-
-  .pl-combo-card__products {
-
-    min-height:
-      165px;
-  }
-
-
-  .pl-combo-card__content {
-
-    padding:
-      15px;
-  }
-
-
-  .pl-combo-card__includes {
-
-    margin-bottom:
-      15px;
-  }
-
-
-  .pl-combo-card__tax-note {
-
-    margin-bottom:
-      18px;
-  }
-
 }
 
 
@@ -1344,11 +1319,10 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-  .pl-combo-card,
-  .pl-combo-card__button,
-  .pl-combos__dot {
+  .pl-combos__dot,
+  .pl-combo-card__button {
 
-    transition: none;
+    transition:
+      none;
   }
-
 }

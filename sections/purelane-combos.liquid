@@ -1,3 +1,4 @@
+{{ 'purelane-offer-card.css' | asset_url | stylesheet_tag }}
 {{ 'purelane-combos.css' | asset_url | stylesheet_tag }}
 
 {%- assign combos = shop.metaobjects.combo.values -%}
@@ -33,8 +34,10 @@
         </h2>
       {%- endif -%}
 
-      <div class="pl-combos__divider" aria-hidden="true">
-
+      <div
+        class="pl-combos__divider"
+        aria-hidden="true"
+      >
         <span></span>
 
         <svg
@@ -51,7 +54,6 @@
         </svg>
 
         <span></span>
-
       </div>
 
       {%- if section.settings.description != blank -%}
@@ -76,15 +78,18 @@
 
             {%- comment -%}
               ======================================================
-              METAOBJECT VALUES
+              COMBO DATA
+
+              The offer card is ONLY the shared translucent shell.
+              All combo-specific content lives here.
               ======================================================
             {%- endcomment -%}
 
             {%- assign combo_name = combo.display_name.value | default: combo.name.value -%}
             {%- assign combo_products = combo.product.value -%}
-            {%- assign bundle_price = combo.bundle_price.value -%}
+            {%- assign combo_price = combo.bundle_price.value -%}
             {%- assign compare_price = combo.compare_at_price.value -%}
-            {%- assign badge = combo.badge.value -%}
+            {%- assign combo_badge = combo.badge.value -%}
             {%- assign is_featured = combo.featured.value -%}
 
 
@@ -95,78 +100,39 @@
             {%- endcomment -%}
 
             {%- assign savings = 0 -%}
-            {%- assign savings_percentage = 0 -%}
 
-            {%- if compare_price != blank and bundle_price != blank -%}
+            {%- if compare_price != blank and combo_price != blank -%}
 
               {%- assign savings =
                 compare_price
-                | minus: bundle_price
+                | minus: combo_price
               -%}
-
-              {%- if compare_price > 0 -%}
-
-                {%- assign savings_percentage =
-                  savings
-                  | times: 100.0
-                  | divided_by: compare_price
-                  | round
-                -%}
-
-              {%- endif -%}
 
             {%- endif -%}
 
 
             {%- comment -%}
               ======================================================
-              COMPLETE PRODUCT LIST FOR TOOLTIP
+              COMBO CARD
+
+              pl-offer-card = shared translucent shell only.
+
+              Everything inside is combo-specific.
               ======================================================
-
-              This builds the complete list of products in the
-              combo so the user can hover the Includes area and
-              see every product, even when the visible list is
-              shortened.
             {%- endcomment -%}
-
-            {%- assign complete_product_list = '' -%}
-
-            {%- if combo_products != blank -%}
-
-              {%- for product in combo_products -%}
-
-                {%- if product.title != blank -%}
-
-                  {%- if complete_product_list != blank -%}
-                    {%- assign complete_product_list =
-                      complete_product_list
-                      | append: ', '
-                    -%}
-                  {%- endif -%}
-
-                  {%- assign complete_product_list =
-                    complete_product_list
-                    | append: product.title
-                  -%}
-
-                {%- endif -%}
-
-              {%- endfor -%}
-
-            {%- endif -%}
-
 
             <article
               class="
+                pl-offer-card
                 pl-combo-card
                 {% if is_featured %}pl-combo-card--featured{% endif %}
               "
             >
 
               {%- comment -%}
-                ==================================================
-                CARD TOP
-                ==================================================
+                ====================================================
+                COMBO TOP
+                ====================================================
               {%- endcomment -%}
 
               <div class="pl-combo-card__top">
@@ -175,9 +141,7 @@
 
                   <span class="pl-combo-card__saving">
 
-                    {%- if section.settings.saving_label != blank -%}
-                      {{ section.settings.saving_label | escape }}
-                    {%- endif -%}
+                    {{ section.settings.saving_label | escape }}
 
                     {{ savings | money_without_trailing_zeros }}
 
@@ -186,10 +150,10 @@
                 {%- endif -%}
 
 
-                {%- if badge != blank -%}
+                {%- if combo_badge != blank -%}
 
                   <span class="pl-combo-card__badge">
-                    {{ badge | escape }}
+                    {{ combo_badge | escape }}
                   </span>
 
                 {%- endif -%}
@@ -198,13 +162,9 @@
 
 
               {%- comment -%}
-                ==================================================
-                PRODUCT VISUALS
-                ==================================================
-
-                Maximum of 5 product visuals are displayed so a
-                combo containing 10–15 products cannot break the
-                card layout.
+                ====================================================
+                COMBO PRODUCTS
+                ====================================================
               {%- endcomment -%}
 
               <div class="pl-combo-card__products">
@@ -227,7 +187,7 @@
                               loading: 'lazy',
                               widths: '120, 180, 240',
                               sizes: '90px',
-                              alt: product.featured_image.alt | default: product.title
+                              alt: product.title
                           }}
 
                         {%- else -%}
@@ -268,15 +228,21 @@
 
                   {%- endfor -%}
 
+                {%- else -%}
+
+                  <div class="pl-combo-product__fallback">
+                    PURELANE
+                  </div>
+
                 {%- endif -%}
 
               </div>
 
 
               {%- comment -%}
-                ==================================================
-                CARD CONTENT
-                ==================================================
+                ====================================================
+                COMBO INFORMATION
+                ====================================================
               {%- endcomment -%}
 
               <div class="pl-combo-card__content">
@@ -292,12 +258,6 @@
 
                 {%- endif -%}
 
-
-                {%- comment -%}
-                  ==================================================
-                  PRODUCT COUNT
-                  ==================================================
-                {%- endcomment -%}
 
                 {%- if combo_products != blank -%}
 
@@ -318,115 +278,24 @@
 
                 {%- comment -%}
                   ==================================================
-                  INCLUDES
-                  ==================================================
-
-                  The products come directly from the Combo
-                  metaobject's "product" field.
-
-                  Only the first 3 product names are displayed.
-                  If there are more than 3 products, an ellipsis
-                  is added.
-
-                  The complete list is stored in the title
-                  attribute so hovering the Includes area shows
-                  every product in the combo.
-                {%- endcomment -%}
-
-                {%- if combo_products != blank -%}
-
-                  <div
-                    class="pl-combo-card__includes"
-                    {% if complete_product_list != blank %}
-                      title="{{ complete_product_list | escape }}"
-                    {% endif %}
-                  >
-
-                    {%- if section.settings.includes_label != blank -%}
-
-                      <strong class="pl-combo-card__includes-label">
-                        {{ section.settings.includes_label | escape }}
-                      </strong>
-
-                    {%- endif -%}
-
-
-                    <span class="pl-combo-card__includes-products">
-
-                      {%- assign displayed_products = 0 -%}
-
-                      {%- for product in combo_products -%}
-
-                        {%- if product.title != blank and displayed_products < 3 -%}
-
-                          <span
-                            class="pl-combo-card__included-product"
-                            title="{{ product.title | escape }}"
-                          >
-                            {{ product.title | escape }}
-                          </span>
-
-                          {%- assign displayed_products =
-                            displayed_products
-                            | plus: 1
-                          -%}
-
-                          {%- if displayed_products < 3
-                            and displayed_products < combo_products.size
-                          -%}
-
-                            <span
-                              class="pl-combo-card__included-separator"
-                              aria-hidden="true"
-                            >
-                              ,
-                            </span>
-
-                          {%- endif -%}
-
-                        {%- endif -%}
-
-                      {%- endfor -%}
-
-
-                      {%- if combo_products.size > 3 -%}
-
-                        <span
-                          class="pl-combo-card__included-more"
-                          aria-hidden="true"
-                        >
-                          …
-                        </span>
-
-                      {%- endif -%}
-
-                    </span>
-
-                  </div>
-
-                {%- endif -%}
-
-
-                {%- comment -%}
-                  ==================================================
                   PRICE
                   ==================================================
                 {%- endcomment -%}
 
                 <div class="pl-combo-card__pricing">
 
-                  {%- if bundle_price != blank -%}
+                  {%- if combo_price != blank -%}
 
                     <span class="pl-combo-card__price">
-                      {{ bundle_price | money_without_trailing_zeros }}
+                      {{ combo_price | money_without_trailing_zeros }}
                     </span>
 
                   {%- endif -%}
 
 
                   {%- if compare_price != blank
-                    and bundle_price != blank
-                    and compare_price > bundle_price
+                    and combo_price != blank
+                    and compare_price > combo_price
                   -%}
 
                     <span class="pl-combo-card__compare">
@@ -449,21 +318,6 @@
                   {%- endif -%}
 
                 </div>
-
-
-                {%- comment -%}
-                  ==================================================
-                  TAX / PAYMENT NOTE
-                  ==================================================
-                {%- endcomment -%}
-
-                {%- if section.settings.tax_note != blank -%}
-
-                  <p class="pl-combo-card__tax-note">
-                    {{ section.settings.tax_note | escape }}
-                  </p>
-
-                {%- endif -%}
 
 
                 {%- comment -%}
@@ -541,8 +395,11 @@
       {%- if section.settings.swipe_text != blank -%}
 
         <p class="pl-combos__swipe">
+
           <span aria-hidden="true">→</span>
+
           {{ section.settings.swipe_text | escape }}
+
         </p>
 
       {%- endif -%}
@@ -621,11 +478,9 @@
     }
 
 
-    /*
-      ==========================================================
-      SLIDER STEP
-      ==========================================================
-    */
+    /* ==========================================================
+       SLIDER STEP
+       ========================================================== */
 
     const getStep = () => {
 
@@ -633,22 +488,17 @@
         return cards[0].offsetWidth;
       }
 
-      const first = cards[0];
-      const second = cards[1];
-
       return (
-        second.offsetLeft -
-        first.offsetLeft
+        cards[1].offsetLeft -
+        cards[0].offsetLeft
       );
 
     };
 
 
-    /*
-      ==========================================================
-      VISIBLE CARD COUNT
-      ==========================================================
-    */
+    /* ==========================================================
+       VISIBLE CARD COUNT
+       ========================================================== */
 
     const getVisibleCount = () => {
 
@@ -672,11 +522,9 @@
     };
 
 
-    /*
-      ==========================================================
-      PAGE COUNT
-      ==========================================================
-    */
+    /* ==========================================================
+       PAGE COUNT
+       ========================================================== */
 
     const getPageCount = () => {
 
@@ -693,11 +541,9 @@
     };
 
 
-    /*
-      ==========================================================
-      DOTS
-      ==========================================================
-    */
+    /* ==========================================================
+       DOTS
+       ========================================================== */
 
     const renderDots = () => {
 
@@ -720,7 +566,8 @@
         const dot =
           document.createElement('button');
 
-        dot.type = 'button';
+        dot.type =
+          'button';
 
         dot.className =
           'pl-combos__dot';
@@ -770,11 +617,9 @@
     };
 
 
-    /*
-      ==========================================================
-      ACTIVE DOT
-      ==========================================================
-    */
+    /* ==========================================================
+       ACTIVE DOT
+       ========================================================== */
 
     const updateDots = () => {
 
@@ -827,11 +672,9 @@
     };
 
 
-    /*
-      ==========================================================
-      PREVIOUS
-      ==========================================================
-    */
+    /* ==========================================================
+       PREVIOUS
+       ========================================================== */
 
     prev?.addEventListener(
       'click',
@@ -851,11 +694,9 @@
     );
 
 
-    /*
-      ==========================================================
-      NEXT
-      ==========================================================
-    */
+    /* ==========================================================
+       NEXT
+       ========================================================== */
 
     next?.addEventListener(
       'click',
@@ -875,11 +716,9 @@
     );
 
 
-    /*
-      ==========================================================
-      SCROLL
-      ==========================================================
-    */
+    /* ==========================================================
+       SCROLL
+       ========================================================== */
 
     viewport.addEventListener(
       'scroll',
@@ -890,11 +729,9 @@
     );
 
 
-    /*
-      ==========================================================
-      RESIZE
-      ==========================================================
-    */
+    /* ==========================================================
+       RESIZE
+       ========================================================== */
 
     window.addEventListener(
       'resize',
@@ -902,11 +739,9 @@
     );
 
 
-    /*
-      ==========================================================
-      INITIALIZE
-      ==========================================================
-    */
+    /* ==========================================================
+       INITIALIZE
+       ========================================================== */
 
     renderDots();
 
@@ -965,23 +800,9 @@
 
     {
       "type": "text",
-      "id": "includes_label",
-      "label": "Includes label",
-      "default": "Includes:"
-    },
-
-    {
-      "type": "text",
       "id": "save_label",
       "label": "Save label",
       "default": "Save"
-    },
-
-    {
-      "type": "text",
-      "id": "tax_note",
-      "label": "Tax note",
-      "default": "Inclusive of all taxes · COD available"
     },
 
     {
