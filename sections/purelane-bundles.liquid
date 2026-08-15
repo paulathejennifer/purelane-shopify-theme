@@ -1,0 +1,692 @@
+{{ 'purelane-offer-card.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-bundles.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-atmosphere.css' | asset_url | stylesheet_tag }}
+
+{%- assign bundles = shop.metaobjects.bundle.values -%}
+
+<section
+  id="PurelaneBundles-{{ section.id }}"
+  class="pl-bundles"
+  aria-labelledby="PurelaneBundlesHeading-{{ section.id }}"
+>
+
+  {% render 'purelane-atmosphere',
+    id: section.id,
+    class: 'pl-bundles__atmosphere'
+  %}
+
+  <div class="pl-bundles__inner">
+
+    {%- comment -%}
+      ============================================================
+      OPTIONAL HEADER
+      ============================================================
+    {%- endcomment -%}
+
+    {%- if section.settings.eyebrow != blank
+      or section.settings.heading != blank
+      or section.settings.description != blank
+    -%}
+
+      <header class="pl-bundles__header">
+
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="pl-bundles__eyebrow">
+            {{ section.settings.eyebrow | escape }}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2
+            id="PurelaneBundlesHeading-{{ section.id }}"
+            class="pl-bundles__heading"
+          >
+            {{ section.settings.heading | escape }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="pl-bundles__description">
+            {{ section.settings.description }}
+          </p>
+        {%- endif -%}
+
+      </header>
+
+    {%- endif -%}
+
+
+    {%- comment -%}
+      ============================================================
+      BUNDLE GRID
+      ============================================================
+    {%- endcomment -%}
+
+    {%- if bundles != blank -%}
+
+      <div class="pl-bundles__grid">
+
+        {%- for bundle in bundles limit: section.settings.bundles_to_show -%}
+
+          {%- comment -%}
+            ========================================================
+            BASIC DATA
+            ========================================================
+          {%- endcomment -%}
+
+          {%- assign bundle_name =
+            bundle.display_name.value
+            | default: bundle.name.value
+            | default: 'Purelane bundle'
+          -%}
+
+          {%- assign bundle_products = bundle.product.value -%}
+
+          {%- if bundle_products == blank -%}
+            {%- assign bundle_products = bundle.products.value -%}
+          {%- endif -%}
+
+          {%- assign bundle_price = bundle.bundle_price.value -%}
+
+          {%- assign compare_price = bundle.compare_at_price.value -%}
+
+          {%- assign badge = bundle.badge.value -%}
+
+          {%- assign bundle_description = bundle.description.value -%}
+
+          {%- assign bundle_benefits = bundle.benefits.value -%}
+
+
+          {%- comment -%}
+            ========================================================
+            SAVINGS
+
+            Saving is always:
+
+            compare-at price - actual bundle price
+            ========================================================
+          {%- endcomment -%}
+
+          {%- assign savings = 0 -%}
+
+          {%- if compare_price != blank
+            and bundle_price != blank
+            and compare_price > bundle_price
+          -%}
+
+            {%- assign savings = compare_price | minus: bundle_price -%}
+
+          {%- endif -%}
+
+
+          {%- comment -%}
+            ========================================================
+            PRODUCT COUNT
+            ========================================================
+          {%- endcomment -%}
+
+          {%- assign product_count = 0 -%}
+
+          {%- if bundle_products != blank -%}
+            {%- assign product_count = bundle_products.size -%}
+          {%- endif -%}
+
+
+          {%- comment -%}
+            ========================================================
+            PRICE PER PRODUCT
+            ========================================================
+          {%- endcomment -%}
+
+          {%- assign per_product = 0 -%}
+
+          {%- if product_count > 0 and bundle_price != blank -%}
+
+            {%- assign per_product =
+              bundle_price
+              | divided_by: product_count
+            -%}
+
+          {%- endif -%}
+
+
+          {%- comment -%}
+            ========================================================
+            FEATURED CARD
+            ========================================================
+          {%- endcomment -%}
+
+          {%- assign is_featured = false -%}
+
+          {%- if badge != blank -%}
+
+            {%- assign badge_downcase = badge | downcase -%}
+
+            {%- if badge_downcase contains 'popular'
+              or badge_downcase contains 'best'
+              or badge_downcase contains 'value'
+              or badge_downcase contains 'recommended'
+            -%}
+
+              {%- assign is_featured = true -%}
+
+            {%- endif -%}
+
+          {%- endif -%}
+
+          {%- if forloop.index == 2 and badge == blank -%}
+            {%- assign is_featured = true -%}
+          {%- endif -%}
+
+
+          {%- comment -%}
+            ========================================================
+            CARD
+            ========================================================
+          {%- endcomment -%}
+
+          <article
+            class="
+              pl-bundle-card
+              {% if is_featured %}pl-bundle-card--featured{% endif %}
+            "
+          >
+
+            {%- comment -%}
+              ======================================================
+              BADGE
+              ======================================================
+            {%- endcomment -%}
+
+            <div class="pl-bundle-card__top">
+
+              {%- if badge != blank -%}
+
+                <span class="pl-bundle-card__badge">
+                  {{ badge | escape }}
+                </span>
+
+              {%- elsif forloop.index == 1 -%}
+
+                <span class="pl-bundle-card__badge">
+                  Starter
+                </span>
+
+              {%- elsif forloop.index == 2 -%}
+
+                <span class="pl-bundle-card__badge">
+                  Most popular
+                </span>
+
+              {%- elsif forloop.index == 3 -%}
+
+                <span class="pl-bundle-card__badge">
+                  Whole home
+                </span>
+
+              {%- endif -%}
+
+            </div>
+
+
+            {%- comment -%}
+              ======================================================
+              PRODUCT VISUAL
+              ======================================================
+            {%- endcomment -%}
+
+            <div class="pl-bundle-card__visual">
+
+              <div class="pl-bundle-card__product-row">
+
+                {%- if bundle_products != blank -%}
+
+                  {%- for product in bundle_products limit: 5 -%}
+
+                    <div
+                      class="pl-bundle-card__product"
+                      title="{{ product.title | escape }}"
+                    >
+
+                      {%- if product.featured_image != blank -%}
+
+                        {{
+                          product.featured_image
+                          | image_url: width: 260
+                          | image_tag:
+                            class: 'pl-bundle-card__product-image',
+                            loading: 'lazy',
+                            widths: '100, 160, 220, 260',
+                            sizes: '64px',
+                            alt: product.featured_image.alt | default: product.title
+                        }}
+
+                      {%- else -%}
+
+                        <div
+                          class="pl-bundle-card__product-fallback"
+                          aria-label="{{ product.title | escape }}"
+                        >
+                          <span>PURELANE</span>
+                        </div>
+
+                      {%- endif -%}
+
+                    </div>
+
+                  {%- endfor -%}
+
+                {%- else -%}
+
+                  <div class="pl-bundle-card__empty-visual">
+                    PURELANE
+                  </div>
+
+                {%- endif -%}
+
+              </div>
+
+            </div>
+
+
+            {%- comment -%}
+              ======================================================
+              PRODUCT COUNT
+              ======================================================
+            {%- endcomment -%}
+
+            <div class="pl-bundle-card__count-box">
+
+              <strong class="pl-bundle-card__count-number">
+                {{ product_count }}
+              </strong>
+
+              <span class="pl-bundle-card__count-label">
+                {% if product_count == 1 %}
+                  product
+                {% else %}
+                  products
+                {% endif %}
+              </span>
+
+            </div>
+
+
+            {%- comment -%}
+              ======================================================
+              CARD BODY
+              ======================================================
+            {%- endcomment -%}
+
+            <div class="pl-bundle-card__body">
+
+              {%- comment -%}
+                Keep the bundle name in the DOM for accessibility,
+                SEO and merchant data, but the visual design uses
+                the large product count as the dominant element.
+              {%- endcomment -%}
+
+              <h3 class="pl-bundle-card__title">
+                {{ bundle_name | escape }}
+              </h3>
+
+
+              {%- comment -%}
+                ====================================================
+                PRICE
+                ====================================================
+              {%- endcomment -%}
+
+              <div class="pl-bundle-card__pricing">
+
+                {%- if bundle_price != blank -%}
+
+                  <span class="pl-bundle-card__price">
+                    {{ bundle_price | money_without_trailing_zeros }}
+                  </span>
+
+                {%- endif -%}
+
+
+                {%- if compare_price != blank
+                  and bundle_price != blank
+                  and compare_price > bundle_price
+                -%}
+
+                  <span class="pl-bundle-card__compare">
+                    {{ compare_price | money_without_trailing_zeros }}
+                  </span>
+
+                {%- endif -%}
+
+              </div>
+
+
+              {%- if per_product > 0 -%}
+
+                <p class="pl-bundle-card__per-product">
+                  Flat
+                  {{ per_product | money_without_trailing_zeros }}
+                  per product
+                </p>
+
+              {%- endif -%}
+
+
+              {%- comment -%}
+                ====================================================
+                BENEFITS
+                ====================================================
+
+                First use the merchant-defined benefits field.
+
+                If that field is empty, use the prototype's
+                fallback copy based on product count.
+                ====================================================
+              {%- endcomment -%}
+
+              <div class="pl-bundle-card__benefits">
+
+                {%- if bundle_benefits != blank -%}
+
+                  {%- for benefit in bundle_benefits -%}
+
+                    {%- if benefit != blank -%}
+
+                      <div class="pl-bundle-card__benefit">
+
+                        <span
+                          class="pl-bundle-card__benefit-check"
+                          aria-hidden="true"
+                        >
+                          ✓
+                        </span>
+
+                        <span>
+                          {{ benefit }}
+                        </span>
+
+                      </div>
+
+                    {%- endif -%}
+
+                  {%- endfor -%}
+
+
+                {%- else -%}
+
+                  {%- if product_count == 2 -%}
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Pick any two products
+                      </span>
+
+                    </div>
+
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Free shipping across India
+                      </span>
+
+                    </div>
+
+
+                  {%- elsif product_count == 3 -%}
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Pick any three products
+                      </span>
+
+                    </div>
+
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Covers kitchen and laundry
+                      </span>
+
+                    </div>
+
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Free shipping across India
+                      </span>
+
+                    </div>
+
+
+                  {%- elsif product_count >= 5 -%}
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Pick any five products
+                      </span>
+
+                    </div>
+
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Every room in one order
+                      </span>
+
+                    </div>
+
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        Free shipping across India
+                      </span>
+
+                    </div>
+
+
+                  {%- elsif bundle_description != blank -%}
+
+                    <div class="pl-bundle-card__benefit">
+
+                      <span
+                        class="pl-bundle-card__benefit-check"
+                        aria-hidden="true"
+                      >
+                        ✓
+                      </span>
+
+                      <span>
+                        {{ bundle_description }}
+                      </span>
+
+                    </div>
+
+                  {%- endif -%}
+
+                {%- endif -%}
+
+              </div>
+
+
+              {%- comment -%}
+                ====================================================
+                CTA
+                ====================================================
+              {%- endcomment -%}
+
+              <a
+                href="{{ section.settings.button_link | default: '#shop' }}"
+                class="
+                  pl-bundle-card__button
+                  {% if is_featured %}pl-bundle-card__button--featured{% endif %}
+                "
+              >
+
+                <span>
+                  {{ section.settings.button_label | escape }}
+                </span>
+
+                {%- if is_featured -%}
+
+                  <span
+                    class="pl-bundle-card__button-arrow"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+
+                {%- endif -%}
+
+              </a>
+
+            </div>
+
+          </article>
+
+        {%- endfor -%}
+
+      </div>
+
+
+    {%- else -%}
+
+      <div class="pl-bundles__empty">
+
+        <p>
+          Add Bundle metaobject entries in Shopify admin to display
+          your bundle options here.
+        </p>
+
+      </div>
+
+    {%- endif -%}
+
+  </div>
+
+</section>
+{% schema %}
+
+{
+  "name": "Purelane bundles",
+  "tag": "section",
+  "class": "section-purelane-bundles",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+
+    {
+      "type": "range",
+      "id": "bundles_to_show",
+      "label": "Bundles to show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Build this box"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Purelane bundles"
+    }
+  ]
+
+}
+
+{% endschema %}
