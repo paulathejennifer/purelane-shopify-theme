@@ -65,6 +65,10 @@
       "type": "purelane-combos",
       "settings": {}
     },
+    "purelane_bundles": {
+  "type": "purelane-bundles",
+  "settings": {}
+},
 
     "purelane_reviews": {
       "type": "purelane-reviews",
@@ -76,6 +80,7 @@
     "purelane_hero",
     "purelane_shop",
     "purelane_combos",
+    "purelane_bundles",
     "purelane_reviews"
   ]
 }
