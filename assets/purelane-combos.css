@@ -1,0 +1,1354 @@
+/* ============================================================
+   PURELANE — BEST SELLING COMBOS
+   ============================================================ */
+
+.pl-combos {
+
+  --pl-ink: #17102b;
+  --pl-purple: #4b3a8f;
+  --pl-purple-light: #6b55b8;
+
+  --pl-teal: #007b73;
+  --pl-teal-dark: #006b64;
+
+  --pl-gold: #b8701c;
+  --pl-gold-bright: #f0a03c;
+
+  --pl-glass:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.76),
+      rgba(236, 230, 247, 0.48)
+    );
+
+  --pl-glass-border:
+    rgba(75, 58, 143, 0.18);
+
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    58px 0
+    24px;
+
+  overflow: hidden;
+
+  background: transparent;
+
+  color: var(--pl-ink);
+
+  isolation: isolate;
+}
+
+
+/* ============================================================
+   ATMOSPHERIC WASH
+   ============================================================ */
+
+.pl-combos::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 16% 28%,
+      rgba(255, 255, 255, 0.14),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 84% 68%,
+      rgba(107, 85, 184, 0.08),
+      transparent 36%
+    );
+}
+
+
+/* ============================================================
+   INNER
+   ============================================================ */
+
+.pl-combos__inner {
+
+  width:
+    min(
+      calc(100% - 36px),
+      1180px
+    );
+
+  margin: 0 auto;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.pl-combos__heading {
+
+  max-width: 760px;
+
+  margin:
+    0 auto
+    34px;
+
+  text-align: center;
+}
+
+
+.pl-combos__eyebrow {
+
+  margin:
+    0 0
+    14px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(36, 26, 61, 0.60);
+}
+
+
+.pl-combos__title {
+
+  margin: 0;
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    clamp(
+      42px,
+      6vw,
+      60px
+    );
+
+  line-height: 0.94;
+
+  font-weight: 800;
+
+  letter-spacing:
+    -0.055em;
+
+  text-transform: uppercase;
+
+  color:
+    var(--pl-ink);
+}
+
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+
+.pl-combos__divider {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 170px;
+
+  gap: 12px;
+
+  margin:
+    18px auto
+    15px;
+
+  color:
+    var(--pl-gold);
+}
+
+
+.pl-combos__divider > span {
+
+  flex: 1;
+
+  height: 1px;
+
+  background:
+    rgba(75, 58, 143, 0.20);
+}
+
+
+.pl-combos__divider svg {
+
+  width: 17px;
+
+  height: 17px;
+
+  flex: 0 0 17px;
+}
+
+
+.pl-combos__description {
+
+  max-width: 590px;
+
+  margin:
+    0 auto;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1.55;
+
+  font-weight: 400;
+
+  color:
+    rgba(36, 26, 61, 0.68);
+}
+
+
+/* ============================================================
+   VIEWPORT
+   ============================================================ */
+
+.pl-combos__viewport {
+
+  width: 100%;
+
+  overflow-x: auto;
+
+  overflow-y: visible;
+
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+
+  overscroll-behavior-x: contain;
+
+  padding:
+    4px
+    2px
+    16px;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.pl-combos__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ============================================================
+   TRACK
+   ============================================================ */
+
+.pl-combos__track {
+
+  display: flex;
+
+  align-items: stretch;
+
+  gap: 14px;
+
+  width: max-content;
+}
+
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+.pl-combo-card {
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  width: 300px;
+
+  min-width: 300px;
+
+  min-height: 445px;
+
+  scroll-snap-align: start;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(--pl-glass-border);
+
+  border-radius: 25px;
+
+  background:
+    var(--pl-glass);
+
+  box-shadow:
+    0 20px 48px rgba(58, 44, 112, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90);
+
+  backdrop-filter:
+    blur(24px)
+    saturate(145%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(145%);
+
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+.pl-combo-card:hover {
+
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 27px 58px rgba(58, 44, 112, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+
+/* ============================================================
+   FEATURED CARD
+   ============================================================ */
+
+.pl-combo-card--featured {
+
+  border-color:
+    rgba(184, 112, 28, 0.62);
+
+  box-shadow:
+    0 24px 54px rgba(58, 44, 112, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+}
+
+
+.pl-combo-card--featured .pl-combo-card__button {
+
+  background:
+    var(--pl-teal);
+
+  border-color:
+    var(--pl-teal);
+
+  color: #ffffff;
+}
+
+
+.pl-combo-card--featured:hover .pl-combo-card__button {
+
+  background:
+    var(--pl-teal-dark);
+
+  border-color:
+    var(--pl-teal-dark);
+}
+
+
+/* ============================================================
+   TOP
+   ============================================================ */
+
+.pl-combo-card__top {
+
+  position: absolute;
+
+  top: 12px;
+
+  left: 13px;
+
+  right: 13px;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  pointer-events: none;
+}
+
+
+.pl-combo-card__saving,
+.pl-combo-card__badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 27px;
+
+  padding:
+    0 11px;
+
+  border:
+    1px solid
+    rgba(184, 112, 28, 0.38);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.76);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 9px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.10em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+
+.pl-combo-card__saving {
+
+  color:
+    var(--pl-gold);
+}
+
+
+.pl-combo-card__badge {
+
+  margin-left: auto;
+
+  border-color:
+    var(--pl-teal);
+
+  background:
+    var(--pl-teal);
+
+  color:
+    #ffffff;
+}
+
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+
+.pl-combo-card__products {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  min-height: 168px;
+
+  padding:
+    48px
+    10px
+    16px;
+
+  border-bottom:
+    1px solid
+    rgba(75, 58, 143, 0.10);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.50),
+      rgba(236,230,247,0.24)
+    );
+}
+
+
+.pl-combo-product {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  min-width: 0;
+
+  width: 72px;
+}
+
+
+.pl-combo-product__image-wrap {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 64px;
+
+  height: 78px;
+}
+
+
+.pl-combo-product__image {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+}
+
+
+.pl-combo-product__fallback {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 52px;
+
+  height: 68px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(107, 85, 184, 0.20);
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size: 6px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  color:
+    var(--pl-purple);
+}
+
+
+.pl-combo-product__title {
+
+  width: 100%;
+
+  margin-top: 3px;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 9px;
+
+  line-height: 1.25;
+
+  color:
+    rgba(36, 26, 61, 0.64);
+
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 2;
+
+  text-overflow: ellipsis;
+
+  overflow-wrap: anywhere;
+}
+
+
+.pl-combo-product__plus {
+
+  flex: 0 0 auto;
+
+  margin-top: 35px;
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  color:
+    var(--pl-gold);
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.pl-combo-card__content {
+
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 1;
+
+  padding:
+    16px;
+}
+
+
+.pl-combo-card__title {
+
+  margin:
+    0
+    0
+    6px;
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size: 17px;
+
+  line-height: 1.08;
+
+  font-weight: 800;
+
+  letter-spacing:
+    -0.025em;
+
+  text-transform: uppercase;
+
+  color:
+    var(--pl-ink);
+
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  overflow-wrap: anywhere;
+}
+
+
+.pl-combo-card__count {
+
+  margin:
+    0
+    0
+    12px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 10px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.16em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(36, 26, 61, 0.50);
+}
+
+
+/* ============================================================
+   INCLUDES
+   ============================================================ */
+
+.pl-combo-card__includes {
+
+  display: block;
+
+  width: 100%;
+
+  min-width: 0;
+
+  margin:
+    0
+    0
+    14px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  color:
+    rgba(36, 26, 61, 0.68);
+
+  cursor: help;
+}
+
+
+.pl-combo-card__includes-label {
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.pl-combo-card__includes-products {
+
+  display: inline;
+
+  min-width: 0;
+}
+
+
+.pl-combo-card__included-product {
+
+  display: inline;
+
+  overflow-wrap: anywhere;
+}
+
+
+.pl-combo-card__included-separator {
+
+  display: inline;
+}
+
+
+.pl-combo-card__included-more {
+
+  display: inline;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+
+/*
+  Long individual product names are safely clipped.
+  The complete list is still available on hover through
+  the parent Includes title attribute.
+*/
+
+.pl-combo-card__included-product {
+
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+
+.pl-combo-card__pricing {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: auto;
+
+  margin-bottom: 8px;
+}
+
+
+.pl-combo-card__price {
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size: 25px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing:
+    -0.035em;
+
+  color:
+    var(--pl-ink);
+}
+
+
+.pl-combo-card__compare {
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 12px;
+
+  text-decoration: line-through;
+
+  color:
+    rgba(36, 26, 61, 0.45);
+}
+
+
+.pl-combo-card__discount {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 24px;
+
+  padding:
+    0 9px;
+
+  border:
+    1px solid
+    rgba(184, 112, 28, 0.35);
+
+  border-radius: 999px;
+
+  background:
+    rgba(184, 112, 28, 0.07);
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform: uppercase;
+
+  color:
+    var(--pl-gold);
+}
+
+
+/* ============================================================
+   TAX / PAYMENT NOTE
+   ============================================================ */
+
+.pl-combo-card__tax-note {
+
+  margin:
+    0
+    0
+    18px;
+
+  padding:
+    0;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 9px;
+
+  line-height: 1.35;
+
+  color:
+    rgba(36, 26, 61, 0.48);
+}
+
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
+
+.pl-combo-card__button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  width: 100%;
+
+  min-height: 45px;
+
+  border:
+    1px solid
+    rgba(75, 58, 143, 0.18);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.70);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing:
+    0.14em;
+
+  text-transform: uppercase;
+
+  text-decoration: none;
+
+  color:
+    var(--pl-teal);
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+
+.pl-combo-card__button:hover {
+
+  background:
+    var(--pl-teal);
+
+  border-color:
+    var(--pl-teal);
+
+  color:
+    #ffffff;
+}
+
+
+.pl-combo-card__button-arrow {
+
+  font-size: 18px;
+
+  line-height: 0;
+}
+
+
+/* ============================================================
+   CONTROLS
+   ============================================================ */
+
+.pl-combos__controls {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+
+.pl-combos__arrow {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 28px;
+
+  height: 28px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 16px;
+
+  color:
+    rgba(36, 26, 61, 0.55);
+
+  cursor: pointer;
+}
+
+
+.pl-combos__dots {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+
+.pl-combos__dot {
+
+  width: 7px;
+
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background:
+    rgba(75, 58, 143, 0.28);
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+
+.pl-combos__dot.is-active {
+
+  transform:
+    scale(1.35);
+
+  background:
+    var(--pl-gold);
+}
+
+
+/* ============================================================
+   SWIPE
+   ============================================================ */
+
+.pl-combos__swipe {
+
+  margin:
+    5px
+    0
+    0;
+
+  text-align: center;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 10px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(36, 26, 61, 0.48);
+}
+
+
+.pl-combos__swipe span {
+
+  margin-right: 5px;
+
+  color:
+    var(--pl-gold);
+}
+
+
+/* ============================================================
+   BOTTOM NOTE
+   ============================================================ */
+
+.pl-combos__bottom-note {
+
+  max-width: 600px;
+
+  margin:
+    15px
+    auto
+    0;
+
+  text-align: center;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  color:
+    rgba(36, 26, 61, 0.48);
+}
+
+
+/* ============================================================
+   EMPTY
+   ============================================================ */
+
+.pl-combos__empty {
+
+  padding: 40px;
+
+  border:
+    1px dashed
+    rgba(75, 58, 143, 0.22);
+
+  border-radius: 22px;
+
+  background:
+    rgba(236, 230, 247, 0.18);
+
+  text-align: center;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  color:
+    rgba(36, 26, 61, 0.60);
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .pl-combo-card {
+
+    width: 290px;
+
+    min-width: 290px;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .pl-combos {
+
+    padding:
+      45px 0
+      20px;
+  }
+
+
+  .pl-combos__inner {
+
+    width:
+      calc(100% - 28px);
+  }
+
+
+  .pl-combos__heading {
+
+    margin-bottom: 25px;
+  }
+
+
+  .pl-combos__eyebrow {
+
+    font-size: 9px;
+
+    letter-spacing:
+      0.18em;
+  }
+
+
+  .pl-combos__title {
+
+    font-size:
+      clamp(
+        38px,
+        11vw,
+        52px
+      );
+  }
+
+
+  .pl-combos__description {
+
+    font-size: 14px;
+
+    line-height: 1.5;
+  }
+
+
+  .pl-combos__viewport {
+
+    margin-left:
+      -14px;
+
+    width:
+      calc(100% + 28px);
+
+    padding-left:
+      14px;
+
+    padding-right:
+      14px;
+  }
+
+
+  .pl-combo-card {
+
+    width:
+      calc(100vw - 48px);
+
+    min-width:
+      calc(100vw - 48px);
+
+    min-height:
+      440px;
+
+    border-radius:
+      22px;
+  }
+
+
+  .pl-combo-card__products {
+
+    min-height:
+      165px;
+  }
+
+
+  .pl-combo-card__content {
+
+    padding:
+      15px;
+  }
+
+
+  .pl-combo-card__includes {
+
+    margin-bottom:
+      15px;
+  }
+
+
+  .pl-combo-card__tax-note {
+
+    margin-bottom:
+      18px;
+  }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pl-combo-card,
+  .pl-combo-card__button,
+  .pl-combos__dot {
+
+    transition: none;
+  }
+
+}

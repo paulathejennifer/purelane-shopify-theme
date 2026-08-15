@@ -1,0 +1,1020 @@
+{{ 'purelane-combos.css' | asset_url | stylesheet_tag }}
+
+{%- assign combos = shop.metaobjects.combo.values -%}
+
+<section
+  id="PurelaneCombos-{{ section.id }}"
+  class="pl-combos"
+  aria-labelledby="PurelaneCombosHeading-{{ section.id }}"
+>
+
+  <div class="pl-combos__inner">
+
+    {%- comment -%}
+      ============================================================
+      HEADER
+      ============================================================
+    {%- endcomment -%}
+
+    <header class="pl-combos__heading">
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pl-combos__eyebrow">
+          {{ section.settings.eyebrow | escape }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2
+          id="PurelaneCombosHeading-{{ section.id }}"
+          class="pl-combos__title"
+        >
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      <div class="pl-combos__divider" aria-hidden="true">
+
+        <span></span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+        </svg>
+
+        <span></span>
+
+      </div>
+
+      {%- if section.settings.description != blank -%}
+        <p class="pl-combos__description">
+          {{ section.settings.description }}
+        </p>
+      {%- endif -%}
+
+    </header>
+
+
+    {%- if combos != blank -%}
+
+      <div
+        class="pl-combos__viewport"
+        data-combos-slider
+      >
+
+        <div class="pl-combos__track">
+
+          {%- for combo in combos limit: section.settings.combos_to_show -%}
+
+            {%- comment -%}
+              ======================================================
+              METAOBJECT VALUES
+              ======================================================
+            {%- endcomment -%}
+
+            {%- assign combo_name = combo.display_name.value | default: combo.name.value -%}
+            {%- assign combo_products = combo.product.value -%}
+            {%- assign bundle_price = combo.bundle_price.value -%}
+            {%- assign compare_price = combo.compare_at_price.value -%}
+            {%- assign badge = combo.badge.value -%}
+            {%- assign is_featured = combo.featured.value -%}
+
+
+            {%- comment -%}
+              ======================================================
+              SAVINGS
+              ======================================================
+            {%- endcomment -%}
+
+            {%- assign savings = 0 -%}
+            {%- assign savings_percentage = 0 -%}
+
+            {%- if compare_price != blank and bundle_price != blank -%}
+
+              {%- assign savings =
+                compare_price
+                | minus: bundle_price
+              -%}
+
+              {%- if compare_price > 0 -%}
+
+                {%- assign savings_percentage =
+                  savings
+                  | times: 100.0
+                  | divided_by: compare_price
+                  | round
+                -%}
+
+              {%- endif -%}
+
+            {%- endif -%}
+
+
+            {%- comment -%}
+              ======================================================
+              COMPLETE PRODUCT LIST FOR TOOLTIP
+              ======================================================
+
+              This builds the complete list of products in the
+              combo so the user can hover the Includes area and
+              see every product, even when the visible list is
+              shortened.
+            {%- endcomment -%}
+
+            {%- assign complete_product_list = '' -%}
+
+            {%- if combo_products != blank -%}
+
+              {%- for product in combo_products -%}
+
+                {%- if product.title != blank -%}
+
+                  {%- if complete_product_list != blank -%}
+                    {%- assign complete_product_list =
+                      complete_product_list
+                      | append: ', '
+                    -%}
+                  {%- endif -%}
+
+                  {%- assign complete_product_list =
+                    complete_product_list
+                    | append: product.title
+                  -%}
+
+                {%- endif -%}
+
+              {%- endfor -%}
+
+            {%- endif -%}
+
+
+            <article
+              class="
+                pl-combo-card
+                {% if is_featured %}pl-combo-card--featured{% endif %}
+              "
+            >
+
+              {%- comment -%}
+                ==================================================
+                CARD TOP
+                ==================================================
+              {%- endcomment -%}
+
+              <div class="pl-combo-card__top">
+
+                {%- if savings > 0 -%}
+
+                  <span class="pl-combo-card__saving">
+
+                    {%- if section.settings.saving_label != blank -%}
+                      {{ section.settings.saving_label | escape }}
+                    {%- endif -%}
+
+                    {{ savings | money_without_trailing_zeros }}
+
+                  </span>
+
+                {%- endif -%}
+
+
+                {%- if badge != blank -%}
+
+                  <span class="pl-combo-card__badge">
+                    {{ badge | escape }}
+                  </span>
+
+                {%- endif -%}
+
+              </div>
+
+
+              {%- comment -%}
+                ==================================================
+                PRODUCT VISUALS
+                ==================================================
+
+                Maximum of 5 product visuals are displayed so a
+                combo containing 10–15 products cannot break the
+                card layout.
+              {%- endcomment -%}
+
+              <div class="pl-combo-card__products">
+
+                {%- if combo_products != blank -%}
+
+                  {%- for product in combo_products limit: 5 -%}
+
+                    <div class="pl-combo-product">
+
+                      <div class="pl-combo-product__image-wrap">
+
+                        {%- if product.featured_image != blank -%}
+
+                          {{
+                            product.featured_image
+                            | image_url: width: 240
+                            | image_tag:
+                              class: 'pl-combo-product__image',
+                              loading: 'lazy',
+                              widths: '120, 180, 240',
+                              sizes: '90px',
+                              alt: product.featured_image.alt | default: product.title
+                          }}
+
+                        {%- else -%}
+
+                          <div class="pl-combo-product__fallback">
+                            PURELANE
+                          </div>
+
+                        {%- endif -%}
+
+                      </div>
+
+
+                      {%- if product.title != blank -%}
+
+                        <span
+                          class="pl-combo-product__title"
+                          title="{{ product.title | escape }}"
+                        >
+                          {{ product.title | escape }}
+                        </span>
+
+                      {%- endif -%}
+
+                    </div>
+
+
+                    {%- unless forloop.last -%}
+
+                      <span
+                        class="pl-combo-product__plus"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+
+                    {%- endunless -%}
+
+                  {%- endfor -%}
+
+                {%- endif -%}
+
+              </div>
+
+
+              {%- comment -%}
+                ==================================================
+                CARD CONTENT
+                ==================================================
+              {%- endcomment -%}
+
+              <div class="pl-combo-card__content">
+
+                {%- if combo_name != blank -%}
+
+                  <h3
+                    class="pl-combo-card__title"
+                    title="{{ combo_name | escape }}"
+                  >
+                    {{ combo_name | escape }}
+                  </h3>
+
+                {%- endif -%}
+
+
+                {%- comment -%}
+                  ==================================================
+                  PRODUCT COUNT
+                  ==================================================
+                {%- endcomment -%}
+
+                {%- if combo_products != blank -%}
+
+                  <p class="pl-combo-card__count">
+
+                    {{ combo_products.size }}
+
+                    {% if combo_products.size == 1 %}
+                      product
+                    {% else %}
+                      products
+                    {% endif %}
+
+                  </p>
+
+                {%- endif -%}
+
+
+                {%- comment -%}
+                  ==================================================
+                  INCLUDES
+                  ==================================================
+
+                  The products come directly from the Combo
+                  metaobject's "product" field.
+
+                  Only the first 3 product names are displayed.
+                  If there are more than 3 products, an ellipsis
+                  is added.
+
+                  The complete list is stored in the title
+                  attribute so hovering the Includes area shows
+                  every product in the combo.
+                {%- endcomment -%}
+
+                {%- if combo_products != blank -%}
+
+                  <div
+                    class="pl-combo-card__includes"
+                    {% if complete_product_list != blank %}
+                      title="{{ complete_product_list | escape }}"
+                    {% endif %}
+                  >
+
+                    {%- if section.settings.includes_label != blank -%}
+
+                      <strong class="pl-combo-card__includes-label">
+                        {{ section.settings.includes_label | escape }}
+                      </strong>
+
+                    {%- endif -%}
+
+
+                    <span class="pl-combo-card__includes-products">
+
+                      {%- assign displayed_products = 0 -%}
+
+                      {%- for product in combo_products -%}
+
+                        {%- if product.title != blank and displayed_products < 3 -%}
+
+                          <span
+                            class="pl-combo-card__included-product"
+                            title="{{ product.title | escape }}"
+                          >
+                            {{ product.title | escape }}
+                          </span>
+
+                          {%- assign displayed_products =
+                            displayed_products
+                            | plus: 1
+                          -%}
+
+                          {%- if displayed_products < 3
+                            and displayed_products < combo_products.size
+                          -%}
+
+                            <span
+                              class="pl-combo-card__included-separator"
+                              aria-hidden="true"
+                            >
+                              ,
+                            </span>
+
+                          {%- endif -%}
+
+                        {%- endif -%}
+
+                      {%- endfor -%}
+
+
+                      {%- if combo_products.size > 3 -%}
+
+                        <span
+                          class="pl-combo-card__included-more"
+                          aria-hidden="true"
+                        >
+                          …
+                        </span>
+
+                      {%- endif -%}
+
+                    </span>
+
+                  </div>
+
+                {%- endif -%}
+
+
+                {%- comment -%}
+                  ==================================================
+                  PRICE
+                  ==================================================
+                {%- endcomment -%}
+
+                <div class="pl-combo-card__pricing">
+
+                  {%- if bundle_price != blank -%}
+
+                    <span class="pl-combo-card__price">
+                      {{ bundle_price | money_without_trailing_zeros }}
+                    </span>
+
+                  {%- endif -%}
+
+
+                  {%- if compare_price != blank
+                    and bundle_price != blank
+                    and compare_price > bundle_price
+                  -%}
+
+                    <span class="pl-combo-card__compare">
+                      {{ compare_price | money_without_trailing_zeros }}
+                    </span>
+
+                  {%- endif -%}
+
+
+                  {%- if savings > 0 -%}
+
+                    <span class="pl-combo-card__discount">
+
+                      {{ section.settings.save_label | escape }}
+
+                      {{ savings | money_without_trailing_zeros }}
+
+                    </span>
+
+                  {%- endif -%}
+
+                </div>
+
+
+                {%- comment -%}
+                  ==================================================
+                  TAX / PAYMENT NOTE
+                  ==================================================
+                {%- endcomment -%}
+
+                {%- if section.settings.tax_note != blank -%}
+
+                  <p class="pl-combo-card__tax-note">
+                    {{ section.settings.tax_note | escape }}
+                  </p>
+
+                {%- endif -%}
+
+
+                {%- comment -%}
+                  ==================================================
+                  BUTTON
+                  ==================================================
+                {%- endcomment -%}
+
+                <a
+                  href="{{ combo_products.first.url | default: routes.all_products_collection_url }}"
+                  class="pl-combo-card__button"
+                >
+
+                  <span>
+                    {{ section.settings.button_label | escape }}
+                  </span>
+
+                  <span
+                    class="pl-combo-card__button-arrow"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+
+                </a>
+
+              </div>
+
+            </article>
+
+          {%- endfor -%}
+
+        </div>
+
+      </div>
+
+
+      {%- comment -%}
+        ==========================================================
+        SLIDER CONTROLS
+        ==========================================================
+      {%- endcomment -%}
+
+      <div class="pl-combos__controls">
+
+        <button
+          type="button"
+          class="pl-combos__arrow pl-combos__arrow--prev"
+          aria-label="Previous combos"
+          data-combos-prev
+        >
+          ←
+        </button>
+
+
+        <div
+          class="pl-combos__dots"
+          data-combos-dots
+          aria-label="Combo slides"
+        ></div>
+
+
+        <button
+          type="button"
+          class="pl-combos__arrow pl-combos__arrow--next"
+          aria-label="Next combos"
+          data-combos-next
+        >
+          →
+        </button>
+
+      </div>
+
+
+      {%- if section.settings.swipe_text != blank -%}
+
+        <p class="pl-combos__swipe">
+          <span aria-hidden="true">→</span>
+          {{ section.settings.swipe_text | escape }}
+        </p>
+
+      {%- endif -%}
+
+
+      {%- if section.settings.bottom_note != blank -%}
+
+        <p class="pl-combos__bottom-note">
+          {{ section.settings.bottom_note }}
+        </p>
+
+      {%- endif -%}
+
+
+    {%- else -%}
+
+      <div class="pl-combos__empty">
+
+        <p>
+          Add Combo metaobject entries in Shopify admin to display your
+          bestselling combos here.
+        </p>
+
+      </div>
+
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+
+<script>
+  (() => {
+
+    const section = document.getElementById(
+      'PurelaneCombos-{{ section.id }}'
+    );
+
+    if (!section) return;
+
+
+    const viewport = section.querySelector(
+      '[data-combos-slider]'
+    );
+
+    const track = section.querySelector(
+      '.pl-combos__track'
+    );
+
+    const cards = [
+      ...section.querySelectorAll(
+        '.pl-combo-card'
+      )
+    ];
+
+    const dotsContainer = section.querySelector(
+      '[data-combos-dots]'
+    );
+
+    const prev = section.querySelector(
+      '[data-combos-prev]'
+    );
+
+    const next = section.querySelector(
+      '[data-combos-next]'
+    );
+
+
+    if (
+      !viewport ||
+      !track ||
+      !cards.length
+    ) {
+      return;
+    }
+
+
+    /*
+      ==========================================================
+      SLIDER STEP
+      ==========================================================
+    */
+
+    const getStep = () => {
+
+      if (cards.length < 2) {
+        return cards[0].offsetWidth;
+      }
+
+      const first = cards[0];
+      const second = cards[1];
+
+      return (
+        second.offsetLeft -
+        first.offsetLeft
+      );
+
+    };
+
+
+    /*
+      ==========================================================
+      VISIBLE CARD COUNT
+      ==========================================================
+    */
+
+    const getVisibleCount = () => {
+
+      const viewportWidth =
+        viewport.clientWidth;
+
+      const cardWidth =
+        cards[0].offsetWidth;
+
+      if (!cardWidth) {
+        return 1;
+      }
+
+      return Math.max(
+        1,
+        Math.floor(
+          viewportWidth / cardWidth
+        )
+      );
+
+    };
+
+
+    /*
+      ==========================================================
+      PAGE COUNT
+      ==========================================================
+    */
+
+    const getPageCount = () => {
+
+      const visible =
+        getVisibleCount();
+
+      return Math.max(
+        1,
+        Math.ceil(
+          cards.length / visible
+        )
+      );
+
+    };
+
+
+    /*
+      ==========================================================
+      DOTS
+      ==========================================================
+    */
+
+    const renderDots = () => {
+
+      if (!dotsContainer) {
+        return;
+      }
+
+      dotsContainer.innerHTML = '';
+
+      const count =
+        getPageCount();
+
+
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
+
+        const dot =
+          document.createElement('button');
+
+        dot.type = 'button';
+
+        dot.className =
+          'pl-combos__dot';
+
+        dot.setAttribute(
+          'aria-label',
+          `Go to combo group ${i + 1}`
+        );
+
+
+        dot.addEventListener(
+          'click',
+          () => {
+
+            const step =
+              getStep();
+
+            const visible =
+              getVisibleCount();
+
+
+            viewport.scrollTo({
+
+              left:
+                i *
+                step *
+                visible,
+
+              behavior:
+                'smooth'
+
+            });
+
+          }
+        );
+
+
+        dotsContainer.appendChild(
+          dot
+        );
+
+      }
+
+
+      updateDots();
+
+    };
+
+
+    /*
+      ==========================================================
+      ACTIVE DOT
+      ==========================================================
+    */
+
+    const updateDots = () => {
+
+      if (!dotsContainer) {
+        return;
+      }
+
+
+      const dots = [
+        ...dotsContainer.children
+      ];
+
+
+      if (!dots.length) {
+        return;
+      }
+
+
+      const step =
+        getStep();
+
+
+      if (!step) {
+        return;
+      }
+
+
+      const visible =
+        getVisibleCount();
+
+
+      const current =
+        Math.round(
+          viewport.scrollLeft /
+          (step * visible)
+        );
+
+
+      dots.forEach(
+        (dot, index) => {
+
+          dot.classList.toggle(
+            'is-active',
+            index === current
+          );
+
+        }
+      );
+
+    };
+
+
+    /*
+      ==========================================================
+      PREVIOUS
+      ==========================================================
+    */
+
+    prev?.addEventListener(
+      'click',
+      () => {
+
+        viewport.scrollBy({
+
+          left:
+            -getStep(),
+
+          behavior:
+            'smooth'
+
+        });
+
+      }
+    );
+
+
+    /*
+      ==========================================================
+      NEXT
+      ==========================================================
+    */
+
+    next?.addEventListener(
+      'click',
+      () => {
+
+        viewport.scrollBy({
+
+          left:
+            getStep(),
+
+          behavior:
+            'smooth'
+
+        });
+
+      }
+    );
+
+
+    /*
+      ==========================================================
+      SCROLL
+      ==========================================================
+    */
+
+    viewport.addEventListener(
+      'scroll',
+      updateDots,
+      {
+        passive: true
+      }
+    );
+
+
+    /*
+      ==========================================================
+      RESIZE
+      ==========================================================
+    */
+
+    window.addEventListener(
+      'resize',
+      renderDots
+    );
+
+
+    /*
+      ==========================================================
+      INITIALIZE
+      ==========================================================
+    */
+
+    renderDots();
+
+  })();
+</script>
+
+
+{% schema %}
+
+{
+  "name": "Purelane combos",
+
+  "tag": "section",
+
+  "class": "section-purelane-combos",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Pre-built to save you money"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best selling combos"
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    },
+
+    {
+      "type": "range",
+      "id": "combos_to_show",
+      "label": "Combos to show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+
+    {
+      "type": "text",
+      "id": "saving_label",
+      "label": "Saving label",
+      "default": "You save"
+    },
+
+    {
+      "type": "text",
+      "id": "includes_label",
+      "label": "Includes label",
+      "default": "Includes:"
+    },
+
+    {
+      "type": "text",
+      "id": "save_label",
+      "label": "Save label",
+      "default": "Save"
+    },
+
+    {
+      "type": "text",
+      "id": "tax_note",
+      "label": "Tax note",
+      "default": "Inclusive of all taxes · COD available"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop bundle"
+    },
+
+    {
+      "type": "text",
+      "id": "swipe_text",
+      "label": "Swipe instruction",
+      "default": "Swipe for more combos"
+    },
+
+    {
+      "type": "textarea",
+      "id": "bottom_note",
+      "label": "Bottom note",
+      "default": "Tapping \"Shop bundle\" opens the bundle picker with these products already added. You can still swap anything before you pay."
+    }
+
+  ],
+
+  "presets": [
+
+    {
+      "name": "Purelane combos"
+    }
+
+  ]
+
+}
+
+{% endschema %}
