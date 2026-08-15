@@ -1,0 +1,42 @@
+{%- comment -%}
+  PURELANE — SHARED OFFER CARD SHELL
+
+  This snippet is intentionally presentation-only.
+
+  It does NOT contain:
+  - product data
+  - pricing
+  - badges
+  - savings
+  - titles
+  - buttons
+  - combo logic
+  - bundle logic
+  - shop logic
+
+  The calling section provides the inner content.
+
+  Usage:
+
+  {% capture offer_card_content %}
+    ...section-specific markup...
+  {% endcapture %}
+
+  {% render 'purelane-offer-card',
+    content: offer_card_content,
+    class: 'pl-bundle-card'
+  %}
+{%- endcomment -%}
+
+<article
+  class="
+    pl-offer-card
+    {{ class }}
+  "
+>
+  <div class="pl-offer-card__surface">
+
+    {{ content }}
+
+  </div>
+</article>

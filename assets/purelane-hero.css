@@ -1,0 +1,1610 @@
+/* =========================================================
+   PURELANE HERO — FINAL CLEAN VERSION
+   ========================================================= */
+
+
+/* =========================================================
+   PROGRESS RAIL
+   ========================================================= */
+
+.pl-rail {
+  position: fixed !important;
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 9999 !important;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   HERO ROOT
+   ========================================================= */
+
+#PurelaneHero-root,
+[id^="PurelaneHero-"] {
+  --pl-ink: #14102f;
+  --pl-purple: #765cc2;
+  --pl-purple-dark: #6249a9;
+  --pl-green: #5c8b3d;
+  --pl-gold: #c77b16;
+  --pl-teal: #087d78;
+  --pl-white: #ffffff;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--pl-ink);
+
+  background:
+    radial-gradient(
+      ellipse at 72% 43%,
+      rgba(190, 226, 220, 0.90) 0%,
+      rgba(211, 237, 232, 0.82) 28%,
+      rgba(226, 242, 239, 0.94) 52%,
+      rgba(244, 248, 247, 0.98) 78%,
+      #ffffff 100%
+    );
+}
+
+
+/* =========================================================
+   HIDE SHOPIFY DEFAULT HEADER
+   PURELANE USES ITS OWN NAVBAR
+   ========================================================= */
+
+body:has(.pl-page) .shopify-section-group-header-group {
+  display: none !important;
+}
+
+
+/* =========================================================
+   TICKER
+   ========================================================= */
+
+.pl-ticker {
+  width: 100%;
+  height: 38px;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(82, 67, 130, 0.12);
+
+  display: flex;
+  align-items: center;
+}
+
+.pl-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 75px;
+
+  width: max-content;
+  white-space: nowrap;
+
+  animation: plTicker 30s linear infinite;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: #706a81;
+}
+
+.pl-ticker-track strong {
+  color: var(--pl-green);
+  font-weight: 800;
+}
+
+@keyframes plTicker {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+/*
+  Sticky wrapper:
+  - stays visible while scrolling
+  - sits above Hero / Shop / Combos / Bundles / Reviews
+  - high z-index prevents sections from covering it
+*/
+
+.pl-navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 99990;
+
+  width: 100%;
+
+  padding: 12px 6.3%;
+
+  pointer-events: none;
+}
+
+
+/*
+  Actual navbar surface.
+  pointer-events restored so links remain clickable.
+*/
+
+.pl-navbar {
+  width: 100%;
+  height: 66px;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid rgba(111, 87, 178, 0.20);
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.86) 50%,
+      rgba(232, 230, 238, 0.90) 100%
+    );
+
+  box-shadow:
+    0 12px 32px rgba(79, 64, 120, 0.09);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.pl-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  text-decoration: none;
+  color: var(--pl-ink);
+
+  flex-shrink: 0;
+}
+
+.pl-brand-mark {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #fbf9f5;
+  border: 1px solid rgba(197, 125, 22, 0.20);
+}
+
+.pl-brand-mark svg {
+  width: 22px;
+  height: 22px;
+
+  fill: none;
+  stroke: #d0954a;
+  stroke-width: 1.3;
+}
+
+.pl-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-brand-text strong {
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pl-brand-text small {
+  margin-top: 4px;
+
+  font-size: 7px;
+  letter-spacing: 0.24em;
+
+  color: #aaa5b3;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.pl-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 31px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pl-nav-links a {
+  position: relative;
+
+  color: #514b61;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.pl-nav-links a:hover {
+  color: var(--pl-purple);
+}
+
+.pl-nav-links a::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: var(--pl-purple);
+
+  transform: translateX(-50%);
+
+  transition: width 0.2s ease;
+}
+
+.pl-nav-links a:hover::after {
+  width: 18px;
+}
+
+
+/* =========================================================
+   NAVIGATION ACTIONS
+   ========================================================= */
+
+.pl-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+
+  flex-shrink: 0;
+}
+
+.pl-nav-icon {
+  position: relative;
+
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  color: #4d475c;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pl-nav-icon:hover {
+  color: var(--pl-purple);
+  transform: translateY(-1px);
+}
+
+.pl-nav-icon svg {
+  width: 21px;
+  height: 21px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   CART COUNT
+   ========================================================= */
+
+.pl-cart-count {
+  position: absolute;
+
+  top: -8px;
+  right: -9px;
+
+  width: 17px;
+  height: 17px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #5b468e;
+  color: #ffffff;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.pl-hero {
+  position: relative;
+
+  min-height: calc(100vh - 104px);
+
+  display: block;
+
+  padding: 52px 7.6% 80px;
+
+  isolation: isolate;
+}
+
+.pl-bg-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: -2;
+
+  filter: blur(2px);
+}
+
+.pl-bg-glow-one {
+  width: 760px;
+  height: 760px;
+
+  right: -120px;
+  top: -20px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(177, 225, 207, 0.78),
+      rgba(200, 235, 218, 0.48) 45%,
+      transparent 73%
+    );
+}
+
+.pl-bg-glow-two {
+  width: 600px;
+  height: 600px;
+
+  left: 180px;
+  bottom: -300px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(213, 235, 229, 0.68),
+      transparent 70%
+    );
+}
+
+.pl-bg-lines {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+
+  opacity: 0.42;
+}
+
+.pl-bg-lines path {
+  fill: none;
+
+  stroke: rgba(255, 255, 255, 0.90);
+
+  stroke-width: 2.2;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.pl-hero-content {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(650px, 48%);
+  max-width: 650px;
+
+  padding-top: 20px;
+}
+
+.pl-heading {
+  margin: 0;
+
+  width: max-content;
+  max-width: none;
+
+  display: flex;
+  flex-direction: column;
+
+  font-family:
+    "Arial Black",
+    Impact,
+    Haettenschweiler,
+    Arial,
+    sans-serif;
+
+  font-size: clamp(96px, 8.8vw, 132px);
+
+  line-height: 0.80;
+
+  letter-spacing: -0.055em;
+
+  font-weight: 900;
+
+  text-transform: uppercase;
+}
+
+.pl-heading span {
+  display: block;
+}
+
+.pl-heading-accent {
+  color: var(--pl-gold);
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.pl-divider {
+  width: 265px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 29px;
+}
+
+.pl-divider span {
+  height: 1px;
+
+  flex: 1;
+
+  background: rgba(86, 75, 110, 0.30);
+}
+
+.pl-divider svg {
+  width: 17px;
+  height: 17px;
+
+  fill: none;
+
+  stroke: var(--pl-gold);
+
+  stroke-width: 1.2;
+}
+
+
+/* =========================================================
+   LEDE
+   ========================================================= */
+
+.pl-lede {
+  max-width: 520px;
+
+  margin: 26px 0 0;
+
+  color: #55516a;
+
+  font-size: 17px;
+
+  line-height: 1.72;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.pl-cta {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+.pl-button {
+  min-height: 50px;
+
+  padding: 0 25px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 0.10em;
+
+  text-transform: uppercase;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pl-button:hover {
+  transform: translateY(-2px);
+}
+
+.pl-button-primary {
+  color: #ffffff;
+
+  background: #087c78;
+
+  box-shadow:
+    0 12px 24px rgba(8, 124, 120, 0.20);
+}
+
+.pl-button-primary svg {
+  width: 18px;
+  height: 18px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+}
+
+.pl-button-secondary {
+  color: #087c78;
+
+  background: rgba(255, 255, 255, 0.76);
+
+  border: 1px solid rgba(8, 124, 120, 0.22);
+}
+
+
+/* =========================================================
+   MOBILE BENEFIT STRIP
+   ========================================================= */
+
+.pl-mobile-benefits {
+  display: none;
+
+  gap: 8px;
+
+  margin-top: 24px;
+}
+
+.pl-mobile-benefit {
+  flex: 1;
+
+  text-align: center;
+
+  padding: 11px 6px;
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(111, 87, 178, 0.12);
+
+  font-size: 8.5px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  color: #514b65;
+
+  line-height: 1.3;
+}
+
+.pl-mobile-benefit-icon {
+  display: grid;
+  place-items: center;
+
+  width: 28px;
+  height: 28px;
+
+  margin: 0 auto 6px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  color: var(--pl-green);
+}
+
+.pl-mobile-benefit-icon svg {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.6;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   PRODUCT AREA
+   ========================================================= */
+
+.pl-product-area {
+  position: absolute;
+
+  top: 0;
+  right: 1.8%;
+
+  width: 56%;
+  height: 100%;
+
+  min-height: 640px;
+
+  z-index: 6;
+
+  overflow: visible;
+}
+
+.pl-product-slide {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.65s ease,
+    visibility 0.65s ease;
+}
+
+.pl-product-slide.is-active {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   BOTTLE STAGE
+   ========================================================= */
+
+.pl-bottle-stage {
+  position: absolute;
+
+  top: 18px;
+  right: 0;
+  bottom: 110px;
+  left: 0;
+
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  gap: 0;
+
+  padding-right: 54px;
+  padding-left: 20px;
+
+  overflow: visible;
+
+  z-index: 2;
+}
+
+.pl-bottle {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  transform-origin: center bottom;
+
+  filter:
+    drop-shadow(
+      0 26px 20px rgba(72, 58, 112, 0.18)
+    );
+
+  animation: plFloat 6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ONE BOTTLE
+   ========================================================= */
+
+.pl-bottle-count-1 {
+  justify-content: flex-end;
+
+  padding-right: 28px;
+}
+
+.pl-bottle-count-1 .pl-bottle {
+  width: 178px;
+  height: 555px;
+
+  transform: translateX(5px);
+}
+
+
+/* =========================================================
+   TWO BOTTLES
+   ========================================================= */
+
+.pl-bottle-count-2 {
+  justify-content: flex-end;
+
+  padding-right: 35px;
+}
+
+.pl-bottle-count-2 .pl-bottle {
+  width: 158px;
+  height: 515px;
+}
+
+.pl-bottle-count-2 .pl-bottle:first-child {
+  margin-right: -30px;
+
+  transform:
+    translateY(15px)
+    scale(0.88);
+
+  z-index: 1;
+}
+
+.pl-bottle-count-2 .pl-bottle:nth-child(2) {
+  transform:
+    translateY(-2px)
+    scale(1.04);
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   THREE BOTTLES
+   ========================================================= */
+
+.pl-bottle-count-3 {
+  justify-content: flex-end;
+
+  padding-right: 30px;
+}
+
+.pl-bottle-count-3 .pl-bottle {
+  width: 148px;
+  height: 495px;
+}
+
+.pl-bottle-count-3 .pl-bottle:nth-child(1) {
+  margin-right: -28px;
+
+  transform:
+    translateY(24px)
+    scale(0.84);
+
+  z-index: 1;
+}
+
+.pl-bottle-count-3 .pl-bottle:nth-child(2) {
+  transform:
+    translateY(-2px)
+    scale(1.06);
+
+  z-index: 3;
+}
+
+.pl-bottle-count-3 .pl-bottle:nth-child(3) {
+  margin-left: -28px;
+
+  transform:
+    translateY(18px)
+    scale(0.87);
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   BOTTLE SVG
+   ========================================================= */
+
+.pl-bottle-svg {
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.pl-svg-pump {
+  fill: #7d67c8;
+}
+
+.pl-svg-pump-stem {
+  fill: #715bbb;
+}
+
+.pl-svg-body {
+  fill: #7259bc;
+
+  stroke: rgba(57, 37, 112, 0.08);
+
+  stroke-width: 2;
+}
+
+.pl-svg-highlight {
+  fill: rgba(255, 255, 255, 0.075);
+}
+
+.pl-svg-label {
+  fill: #eeecf5;
+
+  stroke: rgba(255, 255, 255, 0.60);
+
+  stroke-width: 1;
+}
+
+.pl-svg-label-line {
+  fill: #a392d6;
+}
+
+.pl-svg-brand {
+  fill: #5d5671;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.pl-svg-homecare {
+  fill: #8e889f;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 6px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.4px;
+}
+
+.pl-svg-label-divider {
+  stroke: #c4bfd3;
+
+  stroke-width: 1;
+}
+
+.pl-svg-clean {
+  fill: #777087;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 6px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   BENEFIT CARD — DESKTOP
+   ========================================================= */
+
+.pl-benefit-card {
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 20;
+
+  width: 108px;
+
+  padding: 16px 11px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248, 249, 251, 0.96),
+      rgba(224, 222, 239, 0.94)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    0 20px 45px rgba(66, 54, 101, 0.16);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.pl-benefit-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248, 249, 251, 0.20),
+      rgba(224, 222, 239, 0.20)
+    );
+
+  pointer-events: none;
+}
+
+.pl-benefit-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  color: #514b65;
+
+  font-size: 9px;
+
+  line-height: 1.38;
+
+  font-weight: 800;
+
+  letter-spacing: 0.07em;
+}
+
+.pl-benefit-icon {
+  width: 40px;
+  height: 40px;
+
+  margin-bottom: 8px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  color: var(--pl-green);
+}
+
+.pl-benefit-icon svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pl-benefit-divider {
+  height: 1px;
+
+  margin: 13px 0;
+
+  background: rgba(87, 80, 110, 0.17);
+}
+
+
+/* =========================================================
+   PRICE CARD
+   ========================================================= */
+
+.pl-price-card {
+  position: absolute;
+
+  left: 22%;
+  bottom: 48px;
+
+  z-index: 25;
+
+  min-width: 155px;
+
+  padding: 14px 16px;
+
+  border-radius: 16px;
+
+  background: rgba(245, 247, 247, 0.94);
+
+  border: 1px solid rgba(255, 255, 255, 0.90);
+
+  box-shadow:
+    0 14px 32px rgba(65, 56, 87, 0.16);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.pl-price-label {
+  display: block;
+
+  color: #b26d0d;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.14em;
+}
+
+.pl-price {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 9px;
+
+  margin-top: 5px;
+}
+
+.pl-price strong {
+  color: #19142e;
+
+  font-size: 25px;
+
+  line-height: 1;
+
+  font-weight: 950;
+}
+
+.pl-price s {
+  color: #8b8791;
+
+  font-size: 12px;
+}
+
+.pl-saving {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: rgba(111, 145, 62, 0.13);
+
+  color: #5d883b;
+
+  font-size: 8px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   PRODUCT DOTS
+   ========================================================= */
+
+.pl-product-dots {
+  position: absolute;
+
+  left: 50%;
+  bottom: 16px;
+
+  transform: translateX(-50%);
+
+  z-index: 30;
+
+  display: flex;
+
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.pl-product-dot {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: #aeb8bb;
+
+  cursor: pointer;
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
+}
+
+.pl-product-dot.is-active {
+  width: 21px;
+
+  border-radius: 999px;
+
+  background: #c67b17;
+}
+
+
+/* =========================================================
+   FLOAT ANIMATION
+   ========================================================= */
+
+@keyframes plFloat {
+  0%,
+  100% {
+    margin-bottom: 0;
+  }
+
+  50% {
+    margin-bottom: 10px;
+  }
+}
+
+
+/* =========================================================
+   PROGRESS RAIL DOTS
+   ========================================================= */
+
+.pl-rail-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: rgba(111, 87, 178, 0.28);
+
+  transition:
+    0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  display: block;
+}
+
+.pl-rail-dot.on,
+.pl-rail-dot:hover {
+  background: var(--pl-gold);
+
+  box-shadow:
+    0 0 0 5px rgba(199, 123, 22, 0.18);
+
+  height: 22px;
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   SHOW RAIL ON DESKTOP
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .pl-rail {
+    display: flex !important;
+  }
+}
+
+
+/* =========================================================
+   ≥ 1201px
+   ========================================================= */
+
+@media (min-width: 1201px) {
+  .pl-product-area {
+    width: 57%;
+    right: 1.5%;
+  }
+
+  .pl-hero-content {
+    width: 50%;
+    max-width: 650px;
+
+    padding-top: 12px;
+  }
+
+  .pl-price-card {
+    left: 24%;
+    bottom: 52px;
+  }
+}
+
+
+/* =========================================================
+   1100 – 901px
+   ========================================================= */
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .pl-heading {
+    font-size: clamp(82px, 8.5vw, 110px);
+  }
+
+  .pl-hero-content {
+    width: 48%;
+  }
+
+  .pl-product-area {
+    width: 58%;
+    right: 0;
+  }
+
+  .pl-bottle-count-1 .pl-bottle {
+    width: 155px;
+    height: 500px;
+  }
+
+  .pl-bottle-count-2 .pl-bottle {
+    width: 140px;
+    height: 470px;
+  }
+
+  .pl-bottle-count-3 .pl-bottle {
+    width: 128px;
+    height: 445px;
+  }
+
+  .pl-benefit-card {
+    width: 96px;
+  }
+
+  .pl-price-card {
+    left: 16%;
+    bottom: 46px;
+  }
+}
+
+
+/* =========================================================
+   ≤ 900px
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .pl-navbar-wrap {
+    padding: 10px 18px;
+  }
+
+  .pl-nav-links {
+    display: none;
+  }
+
+  .pl-navbar {
+    height: 60px;
+  }
+
+  .pl-hero {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    padding: 55px 7% 70px;
+  }
+
+  .pl-hero-content {
+    width: 100%;
+    max-width: 650px;
+
+    padding-top: 0;
+  }
+
+  .pl-heading {
+    width: auto;
+
+    max-width: 100%;
+
+    font-size: clamp(76px, 15vw, 110px);
+  }
+
+  /* Buttons stay side-by-side / natural width */
+  .pl-cta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    width: auto;
+  }
+
+  .pl-button {
+    width: auto;
+
+    flex: 0 0 auto;
+
+    min-height: 46px;
+
+    padding: 0 20px;
+
+    font-size: 11px;
+  }
+
+  .pl-mobile-benefits {
+    display: flex;
+  }
+
+  .pl-benefit-card {
+    display: none;
+  }
+
+  .pl-product-area {
+    position: relative;
+
+    top: auto;
+    right: auto;
+
+    width: 100%;
+
+    height: 540px;
+
+    min-height: 540px;
+
+    margin-top: 18px;
+  }
+
+  .pl-bottle-stage {
+    padding-right: 20px;
+
+    bottom: 100px;
+
+    justify-content: center;
+  }
+
+  .pl-price-card {
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 44px;
+  }
+
+  .pl-product-dots {
+    bottom: 14px;
+  }
+}
+
+
+/* =========================================================
+   ≤ 600px
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .pl-navbar-wrap {
+    padding: 8px 12px;
+  }
+
+  .pl-navbar {
+    height: 56px;
+
+    padding: 0 13px;
+  }
+
+  .pl-brand {
+    gap: 8px;
+  }
+
+  .pl-brand-text strong {
+    font-size: 13px;
+  }
+
+  .pl-brand-text small {
+    font-size: 5.5px;
+  }
+
+  .pl-brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .pl-brand-mark svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .pl-nav-actions {
+    gap: 11px;
+  }
+
+  .pl-nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pl-nav-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .pl-hero {
+    padding: 40px 18px 60px;
+  }
+
+  .pl-heading {
+    font-size: clamp(66px, 19vw, 92px);
+  }
+
+  .pl-divider {
+    width: 220px;
+  }
+
+  .pl-lede {
+    font-size: 14px;
+  }
+
+  .pl-cta {
+    gap: 8px;
+  }
+
+  .pl-button {
+    width: auto;
+
+    flex: 0 0 auto;
+
+    min-height: 44px;
+
+    padding: 0 16px;
+
+    font-size: 10.5px;
+  }
+
+  .pl-mobile-benefit {
+    font-size: 7.5px;
+
+    padding: 9px 4px;
+  }
+
+  .pl-mobile-benefit-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pl-mobile-benefit-icon svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .pl-product-area {
+    height: 480px;
+
+    min-height: 480px;
+  }
+
+  .pl-bottle-stage {
+    padding-right: 12px;
+
+    bottom: 95px;
+  }
+
+  .pl-bottle-count-1 .pl-bottle {
+    width: 145px;
+    height: 455px;
+  }
+
+  .pl-bottle-count-2 .pl-bottle {
+    width: 120px;
+    height: 410px;
+  }
+
+  .pl-bottle-count-3 .pl-bottle {
+    width: 105px;
+    height: 385px;
+  }
+
+  .pl-price-card {
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 40px;
+
+    min-width: 128px;
+
+    padding: 11px 12px;
+  }
+
+  .pl-price-label {
+    font-size: 7px;
+  }
+
+  .pl-price strong {
+    font-size: 20px;
+  }
+
+  .pl-price s {
+    font-size: 9px;
+  }
+
+  .pl-saving {
+    font-size: 7px;
+  }
+
+  .pl-product-dots {
+    bottom: 12px;
+  }
+}

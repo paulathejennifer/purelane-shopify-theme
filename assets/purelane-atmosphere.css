@@ -1,0 +1,273 @@
+/* ============================================================
+   PURELANE ATMOSPHERE
+   ============================================================
+
+   Shared translucent section surface.
+
+   Purpose:
+   - visibly translucent
+   - whitish / warm natural surface
+   - subtle natural green undertone
+   - homepage scene remains visible underneath
+   - stronger glass-like section wash
+   - soft white light
+   - gentle section separation
+
+   IMPORTANT:
+   This is the SECTION atmosphere, not the card glass effect.
+
+   The parent section should provide:
+     position: relative;
+     isolation: isolate;
+
+   The atmosphere itself is deliberately kept at z-index: 0
+   so it cannot disappear behind the parent's stacking context.
+
+   The section content should sit above it.
+   ============================================================ */
+
+
+/* ============================================================
+   ATMOSPHERE WRAPPER
+   ============================================================ */
+
+.pl-atmosphere {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    0;
+
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  pointer-events:
+    none;
+
+  overflow:
+    hidden;
+
+
+  /*
+   * MAIN TRANSLUCENT SURFACE
+   *
+   * Whitish translucent base with a very subtle green/natural
+   * undertone.
+   *
+   * This is intentionally visible.
+   *
+   * The underlying homepage / scene is still allowed to show
+   * through the surface.
+   */
+  background:
+    rgba(231, 239, 234, 0.72);
+
+
+  /*
+   * Soft section edge.
+   */
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.58);
+
+  border-bottom:
+    1px solid
+    rgba(23, 61, 52, 0.10);
+
+
+  /*
+   * Glass-like atmospheric separation.
+   */
+  backdrop-filter:
+    blur(22px)
+    saturate(118%);
+
+  -webkit-backdrop-filter:
+    blur(22px)
+    saturate(118%);
+
+
+  /*
+   * Establish a local stacking context for the atmospheric
+   * pseudo-elements.
+   */
+  isolation:
+    isolate;
+}
+
+
+/* ============================================================
+   ATMOSPHERIC LIGHT
+   ============================================================ */
+
+.pl-atmosphere::before {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    0;
+
+  pointer-events:
+    none;
+
+
+  background:
+
+    /*
+     * Soft warm white light from upper left.
+     */
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 255, 255, 0.40),
+      transparent 34%
+    ),
+
+
+    /*
+     * Natural Purelane green wash.
+     *
+     * Kept subtle so the section reads as white/translucent
+     * first, green second.
+     */
+    radial-gradient(
+      circle at 88% 76%,
+      rgba(63, 128, 109, 0.20),
+      transparent 42%
+    ),
+
+
+    /*
+     * Overall translucent white/green veil.
+     */
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(196, 216, 205, 0.20)
+    );
+
+  opacity:
+    1;
+}
+
+
+/* ============================================================
+   SOFT CENTRAL HIGHLIGHT
+   ============================================================ */
+
+.pl-atmosphere::after {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    -30%;
+
+  left:
+    50%;
+
+  width:
+    78%;
+
+  height:
+    85%;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    1;
+
+  pointer-events:
+    none;
+
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(255, 255, 255, 0.24),
+      transparent 68%
+    );
+
+  opacity:
+    0.78;
+}
+
+
+/* ============================================================
+   BUNDLES ATMOSPHERE
+   ============================================================
+
+   The class is supplied by the Bundles section:
+
+   class: 'pl-bundles__atmosphere'
+
+   This makes the stacking relationship explicit without
+   changing the shared atmosphere used by other sections.
+   ============================================================ */
+
+.pl-bundles__atmosphere {
+
+  z-index:
+    0;
+}
+
+
+/* ============================================================
+   CONTENT SAFETY
+   ============================================================
+
+   The atmosphere must remain behind the actual section
+   content while still being above the section's base surface.
+
+   Any section using the atmosphere can opt into this pattern
+   by placing its content in a relatively positioned wrapper.
+   ============================================================ */
+
+.pl-bundles > .pl-bundles__inner {
+
+  position:
+    relative;
+
+  z-index:
+    2;
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pl-atmosphere {
+
+    backdrop-filter:
+      blur(16px)
+      saturate(112%);
+
+    -webkit-backdrop-filter:
+      blur(16px)
+      saturate(112%);
+  }
+
+}

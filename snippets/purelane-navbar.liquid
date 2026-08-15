@@ -1,0 +1,99 @@
+<header class="pl-navbar-wrap">
+  <nav class="pl-navbar" aria-label="Main navigation">
+
+    <!-- BRAND -->
+    <a href="{{ routes.root_url }}" class="pl-brand">
+      <span class="pl-brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" role="img">
+          <path d="M16 3 27 9v14l-11 6L5 23V9l11-6Z"/>
+          <path d="m10 12 6-3 6 3-6 3-6-3Z"/>
+          <path d="M16 15v9"/>
+        </svg>
+      </span>
+
+      <span class="pl-brand-text">
+        <strong>PURELANE</strong>
+        <small>CLEAN, SIMPLY</small>
+      </span>
+    </a>
+
+
+    <!-- MAIN NAVIGATION -->
+    <div class="pl-nav-links">
+
+      <a href="{{ routes.root_url }}#hero">
+        Home
+      </a>
+
+      <a href="{{ routes.root_url }}#shop">
+        Shop
+      </a>
+
+      <a href="{{ routes.root_url }}#combos">
+        Combos
+      </a>
+
+      <a href="{{ routes.root_url }}#bundles">
+        Bundles
+      </a>
+
+      <a href="{{ routes.root_url }}#reviews">
+        Reviews
+      </a>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+    <div class="pl-nav-actions">
+
+      <!-- SEARCH -->
+      <a
+        href="{{ routes.search_url }}"
+        class="pl-nav-icon"
+        aria-label="Search"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6"/>
+          <path d="m16 16 5 5"/>
+        </svg>
+      </a>
+
+
+      <!-- ACCOUNT -->
+      <a
+        href="{{ routes.account_url }}"
+        class="pl-nav-icon"
+        aria-label="Account"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M5 20c.7-3.7 3.1-5.5 7-5.5s6.3 1.8 7 5.5"/>
+        </svg>
+      </a>
+
+
+      <!-- CART -->
+      <a
+        href="{{ routes.cart_url }}"
+        class="pl-nav-icon pl-cart-link"
+        aria-label="Cart"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 5h2l2 11h9l3-8H7"/>
+          <circle cx="10" cy="20" r="1.4"/>
+          <circle cx="17" cy="20" r="1.4"/>
+        </svg>
+
+        <span
+          class="pl-cart-count"
+          {% if cart.item_count == 0 %}hidden{% endif %}
+        >
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+    </div>
+
+  </nav>
+</header>

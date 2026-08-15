@@ -1,0 +1,1501 @@
+/* ============================================================
+   PURELANE — BUNDLES
+   REFERENCE-MATCHED OFFER CARDS
+
+   Structure:
+
+   section
+     └── grid
+          ├── bundle card
+          │    ├── badge
+          │    ├── product visual tray
+          │    ├── product count
+          │    ├── price
+          │    ├── benefits
+          │    └── CTA
+
+   The visual target is the original Purelane bundle treatment:
+   Starter / Most popular / Whole home.
+   ============================================================ */
+
+
+/* ============================================================
+   SECTION
+   ============================================================ */
+
+.pl-bundles {
+
+  --pl-ink: #17102b;
+  --pl-ink-soft: rgba(23, 16, 43, 0.58);
+
+  --pl-purple: #6650aa;
+  --pl-purple-dark: #4b3a8f;
+
+  --pl-teal: #007b73;
+  --pl-teal-dark: #006a63;
+
+  --pl-green: #5d9628;
+  --pl-gold: #b8701c;
+  --pl-gold-light: #d99b50;
+
+  width: 100%;
+
+  padding:
+    12px 0
+    54px;
+
+  position: relative;
+
+  color: var(--pl-ink);
+
+  isolation: isolate;
+
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   INNER
+   ============================================================ */
+
+.pl-bundles__inner {
+
+  width:
+    min(
+      calc(100% - 36px),
+      1160px
+    );
+
+  margin:
+    0 auto;
+}
+
+
+/* ============================================================
+   OPTIONAL HEADER
+
+   Hidden by default in schema because the reference screenshot
+   moves directly into the three offer cards.
+   ============================================================ */
+
+.pl-bundles__header {
+
+  max-width: 700px;
+
+  margin:
+    0 auto
+    24px;
+
+  text-align: center;
+}
+
+
+.pl-bundles__eyebrow {
+
+  margin:
+    0 0 9px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+
+  line-height:
+    1.2;
+
+  letter-spacing:
+    0.20em;
+
+  text-transform:
+    uppercase;
+
+  color:
+    rgba(23, 16, 43, 0.46);
+}
+
+
+.pl-bundles__heading {
+
+  margin:
+    0 0 10px;
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    clamp(32px, 5vw, 54px);
+
+  font-weight:
+    800;
+
+  line-height:
+    0.95;
+
+  letter-spacing:
+    -0.025em;
+
+  text-transform:
+    uppercase;
+
+  color:
+    var(--pl-ink);
+}
+
+
+.pl-bundles__description {
+
+  max-width:
+    52ch;
+
+  margin:
+    0 auto;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    15px;
+
+  line-height:
+    1.55;
+
+  color:
+    rgba(23, 16, 43, 0.56);
+}
+
+
+/* ============================================================
+   GRID
+   ============================================================ */
+
+.pl-bundles__grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap:
+    14px;
+
+  align-items:
+    stretch;
+}
+
+
+/* ============================================================
+   BUNDLE CARD
+   ============================================================ */
+
+.pl-bundle-card {
+
+  position:
+    relative;
+
+  min-width:
+    0;
+
+  min-height:
+    494px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  padding:
+    0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.72);
+
+  border-radius:
+    26px;
+
+  background:
+    linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(240, 248, 244, 0.48) 50%,
+      rgba(204, 230, 218, 0.42)
+    );
+
+  box-shadow:
+    0 18px 45px rgba(48, 87, 69, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+
+  backdrop-filter:
+    blur(20px)
+    saturate(135%);
+
+  -webkit-backdrop-filter:
+    blur(20px)
+    saturate(135%);
+
+  overflow:
+    hidden;
+
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+
+.pl-bundle-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 24px 55px rgba(48, 87, 69, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+
+/* ============================================================
+   FEATURED CARD
+   ============================================================ */
+
+.pl-bundle-card--featured {
+
+  border-color:
+    rgba(210, 155, 67, 0.68);
+
+  box-shadow:
+    0 22px 58px rgba(48, 87, 69, 0.17),
+    0 0 0 1px rgba(210, 155, 67, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+
+  transform:
+    translateY(-1px);
+}
+
+
+.pl-bundle-card--featured:hover {
+
+  transform:
+    translateY(-5px);
+}
+
+
+/* ============================================================
+   TOP BADGE
+   ============================================================ */
+
+.pl-bundle-card__top {
+
+  position:
+    relative;
+
+  z-index:
+    3;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  min-height:
+    61px;
+
+  padding:
+    19px 22px 7px;
+}
+
+
+.pl-bundle-card__badge {
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  min-height:
+    28px;
+
+  padding:
+    0 12px;
+
+  border:
+    1px solid
+    rgba(210, 155, 67, 0.42);
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(250, 244, 226, 0.68);
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    9px;
+
+  line-height:
+    1;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.16em;
+
+  text-transform:
+    uppercase;
+
+  color:
+    rgba(84, 116, 48, 0.84);
+
+  white-space:
+    nowrap;
+}
+
+
+/* ============================================================
+   PRODUCT VISUAL TRAY
+   ============================================================ */
+
+.pl-bundle-card__visual {
+
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  width:
+    calc(100% - 44px);
+
+  height:
+    78px;
+
+  margin:
+    0 22px
+    8px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid
+    rgba(133, 157, 182, 0.25);
+
+  border-radius:
+    15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.48),
+      rgba(234, 240, 247, 0.36)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+
+  overflow:
+    hidden;
+}
+
+
+.pl-bundle-card__visual::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,255,255,0.22),
+      transparent 34%,
+      transparent 70%,
+      rgba(255,255,255,0.12)
+    );
+}
+
+
+/* ============================================================
+   PRODUCT ROW
+   ============================================================ */
+
+.pl-bundle-card__product-row {
+
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  height:
+    100%;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+
+  width:
+    100%;
+
+  padding:
+    8px 18px;
+}
+
+
+/* ============================================================
+   PRODUCT ITEM
+   ============================================================ */
+
+.pl-bundle-card__product {
+
+  position:
+    relative;
+
+  flex:
+    0 1 55px;
+
+  width:
+    55px;
+
+  height:
+    61px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  min-width:
+    0;
+}
+
+
+/* ============================================================
+   PRODUCT IMAGE
+   ============================================================ */
+
+.pl-bundle-card__product-image {
+
+  display:
+    block;
+
+  width:
+    auto;
+
+  height:
+    57px;
+
+  max-width:
+    53px;
+
+  object-fit:
+    contain;
+
+  filter:
+    drop-shadow(
+      0 5px 5px rgba(44, 38, 77, 0.14)
+    );
+
+  transition:
+    transform 220ms ease;
+}
+
+
+.pl-bundle-card:hover
+.pl-bundle-card__product-image {
+
+  transform:
+    translateY(-2px);
+}
+
+
+/* ============================================================
+   PRODUCT IMAGE FALLBACK
+   ============================================================ */
+
+.pl-bundle-card__product-fallback {
+
+  width:
+    34px;
+
+  height:
+    49px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    5px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #8c78c9,
+      #5f4a9d
+    );
+
+  box-shadow:
+    0 5px 9px rgba(60, 43, 112, 0.20);
+}
+
+
+.pl-bundle-card__product-fallback span {
+
+  writing-mode:
+    vertical-rl;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    5px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.08em;
+
+  color:
+    rgba(255, 255, 255, 0.75);
+}
+
+
+.pl-bundle-card__empty-visual {
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    8px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.15em;
+
+  color:
+    rgba(75, 58, 143, 0.42);
+}
+
+
+/* ============================================================
+   COUNT BOX
+   ============================================================ */
+
+.pl-bundle-card__count-box {
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  height:
+    67px;
+
+  margin:
+    0 22px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  padding:
+    4px 0
+    0;
+
+  border:
+    1px solid
+    rgba(125, 143, 172, 0.42);
+
+  background:
+    rgba(255, 255, 255, 0.40);
+
+  overflow:
+    hidden;
+}
+
+
+.pl-bundle-card__count-number {
+
+  display:
+    block;
+
+  margin:
+    -1px 0 0
+    -1px;
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    55px;
+
+  line-height:
+    0.78;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    -0.045em;
+
+  color:
+    #403b54;
+}
+
+
+.pl-bundle-card__count-label {
+
+  display:
+    block;
+
+  margin:
+    5px 0 0;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    12px;
+
+  line-height:
+    1;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform:
+    uppercase;
+
+  color:
+    rgba(67, 64, 84, 0.55);
+}
+
+
+/* ============================================================
+   BODY
+   ============================================================ */
+
+.pl-bundle-card__body {
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  flex:
+    1;
+
+  min-width:
+    0;
+
+  padding:
+    22px 22px 20px;
+}
+
+
+/* ============================================================
+   TITLE
+
+   The reference card doesn't visually show the bundle title
+   prominently. It is retained for accessibility and SEO.
+   ============================================================ */
+
+.pl-bundle-card__title {
+
+  position:
+    absolute;
+
+  width:
+    1px;
+
+  height:
+    1px;
+
+  padding:
+    0;
+
+  margin:
+    -1px;
+
+  overflow:
+    hidden;
+
+  clip:
+    rect(0, 0, 0, 0);
+
+  white-space:
+    nowrap;
+
+  border:
+    0;
+}
+
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+
+.pl-bundle-card__pricing {
+
+  display:
+    flex;
+
+  align-items:
+    baseline;
+
+  gap:
+    10px;
+
+  margin:
+    0;
+
+  min-height:
+    35px;
+}
+
+
+.pl-bundle-card__price {
+
+  font-family:
+    "Outfit",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    27px;
+
+  line-height:
+    1;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    -0.025em;
+
+  color:
+    #bd7422;
+}
+
+
+.pl-bundle-card__compare {
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    12px;
+
+  line-height:
+    1;
+
+  text-decoration:
+    line-through;
+
+  color:
+    rgba(62, 60, 76, 0.56);
+}
+
+
+/* ============================================================
+   PER PRODUCT
+   ============================================================ */
+
+.pl-bundle-card__per-product {
+
+  margin:
+    5px 0 16px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    10px;
+
+  line-height:
+    1.4;
+
+  color:
+    rgba(62, 60, 76, 0.58);
+}
+
+
+/* ============================================================
+   BENEFITS
+   ============================================================ */
+
+.pl-bundle-card__benefits {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    10px;
+
+  margin:
+    0 0 17px;
+}
+
+
+.pl-bundle-card__benefit {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    14px
+    minmax(0, 1fr);
+
+  align-items:
+    start;
+
+  column-gap:
+    5px;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    11.5px;
+
+  line-height:
+    1.35;
+
+  color:
+    rgba(47, 60, 57, 0.72);
+}
+
+
+.pl-bundle-card__benefit-check {
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    14px;
+
+  height:
+    14px;
+
+  font-size:
+    12px;
+
+  line-height:
+    1;
+
+  font-weight:
+    800;
+
+  color:
+    #5e962c;
+}
+
+
+/* ============================================================
+   CTA
+   ============================================================ */
+
+.pl-bundle-card__button {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    12px;
+
+  width:
+    100%;
+
+  min-height:
+    45px;
+
+  margin-top:
+    auto;
+
+  padding:
+    0 18px;
+
+  border:
+    1px solid
+    rgba(0, 91, 85, 0.20);
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(255, 255, 255, 0.72);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    10.5px;
+
+  line-height:
+    1;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.13em;
+
+  text-transform:
+    uppercase;
+
+  text-decoration:
+    none;
+
+  color:
+    #005c56;
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+
+.pl-bundle-card__button:hover {
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  border-color:
+    rgba(0, 91, 85, 0.34);
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(0, 91, 85, 0.10);
+}
+
+
+/* ============================================================
+   FEATURED BUTTON
+   ============================================================ */
+
+.pl-bundle-card__button--featured {
+
+  background:
+    linear-gradient(
+      135deg,
+      #087b72,
+      #006d66
+    );
+
+  border-color:
+    #006d66;
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 7px 16px rgba(0, 108, 100, 0.18);
+}
+
+
+.pl-bundle-card__button--featured:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      #07877d,
+      #00675f
+    );
+
+  border-color:
+    #00675f;
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 10px 21px rgba(0, 108, 100, 0.24);
+}
+
+
+/* ============================================================
+   ARROW
+   ============================================================ */
+
+.pl-bundle-card__button-arrow {
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  font-size:
+    18px;
+
+  line-height:
+    0;
+
+  font-weight:
+    400;
+}
+
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.pl-bundles__empty {
+
+  padding:
+    40px;
+
+  border:
+    1px dashed
+    rgba(0, 91, 85, 0.25);
+
+  border-radius:
+    22px;
+
+  background:
+    rgba(255, 255, 255, 0.34);
+
+  text-align:
+    center;
+
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    14px;
+
+  line-height:
+    1.5;
+
+  color:
+    rgba(23, 16, 43, 0.58);
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 980px) {
+
+  .pl-bundles__grid {
+
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+
+    gap:
+      10px;
+  }
+
+
+  .pl-bundle-card {
+
+    min-height:
+      470px;
+
+    border-radius:
+      22px;
+  }
+
+
+  .pl-bundle-card__top {
+
+    padding-left:
+      15px;
+
+    padding-right:
+      15px;
+  }
+
+
+  .pl-bundle-card__visual {
+
+    width:
+      calc(100% - 30px);
+
+    margin-left:
+      15px;
+
+    margin-right:
+      15px;
+  }
+
+
+  .pl-bundle-card__count-box {
+
+    margin-left:
+      15px;
+
+    margin-right:
+      15px;
+  }
+
+
+  .pl-bundle-card__body {
+
+    padding-left:
+      15px;
+
+    padding-right:
+      15px;
+  }
+
+
+  .pl-bundle-card__count-number {
+
+    font-size:
+      49px;
+  }
+
+
+  .pl-bundle-card__price {
+
+    font-size:
+      24px;
+  }
+
+
+  .pl-bundle-card__benefit {
+
+    font-size:
+      10.5px;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .pl-bundles {
+
+    padding:
+      10px 0
+      42px;
+  }
+
+
+  .pl-bundles__inner {
+
+    width:
+      calc(100% - 28px);
+  }
+
+
+  .pl-bundles__grid {
+
+    grid-template-columns:
+      1fr;
+
+    gap:
+      14px;
+  }
+
+
+  .pl-bundle-card {
+
+    min-height:
+      0;
+
+    border-radius:
+      23px;
+  }
+
+
+  .pl-bundle-card--featured {
+
+    transform:
+      none;
+  }
+
+
+  .pl-bundle-card--featured:hover {
+
+    transform:
+      translateY(-3px);
+  }
+
+
+  .pl-bundle-card__top {
+
+    min-height:
+      57px;
+
+    padding:
+      16px 17px 7px;
+  }
+
+
+  .pl-bundle-card__visual {
+
+    width:
+      calc(100% - 34px);
+
+    height:
+      86px;
+
+    margin:
+      0 17px
+      9px;
+  }
+
+
+  .pl-bundle-card__product {
+
+    flex-basis:
+      58px;
+
+    width:
+      58px;
+
+    height:
+      66px;
+  }
+
+
+  .pl-bundle-card__product-image {
+
+    height:
+      62px;
+
+    max-width:
+      56px;
+  }
+
+
+  .pl-bundle-card__count-box {
+
+    height:
+      73px;
+
+    margin:
+      0 17px;
+  }
+
+
+  .pl-bundle-card__count-number {
+
+    font-size:
+      57px;
+  }
+
+
+  .pl-bundle-card__body {
+
+    padding:
+      19px 17px 17px;
+  }
+
+
+  .pl-bundle-card__price {
+
+    font-size:
+      27px;
+  }
+
+
+  .pl-bundle-card__benefit {
+
+    font-size:
+      11.5px;
+  }
+
+
+  .pl-bundle-card__button {
+
+    min-height:
+      47px;
+  }
+
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .pl-bundles__inner {
+
+    width:
+      calc(100% - 22px);
+  }
+
+
+  .pl-bundle-card__product-row {
+
+    gap:
+      3px;
+
+    padding:
+      8px 9px;
+  }
+
+
+  .pl-bundle-card__product {
+
+    flex-basis:
+      49px;
+
+    width:
+      49px;
+  }
+
+
+  .pl-bundle-card__product-image {
+
+    max-width:
+      48px;
+
+    height:
+      56px;
+  }
+
+
+  .pl-bundle-card__count-number {
+
+    font-size:
+      52px;
+  }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pl-bundle-card,
+  .pl-bundle-card__product-image,
+  .pl-bundle-card__button {
+
+    transition:
+      none;
+  }
+
+}
