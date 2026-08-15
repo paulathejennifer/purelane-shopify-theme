@@ -1,9 +1,10 @@
 <header class="pl-navbar-wrap">
   <nav class="pl-navbar" aria-label="Main navigation">
 
+    <!-- BRAND -->
     <a href="{{ routes.root_url }}" class="pl-brand">
       <span class="pl-brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32">
+        <svg viewBox="0 0 32 32" role="img">
           <path d="M16 3 27 9v14l-11 6L5 23V9l11-6Z"/>
           <path d="m10 12 6-3 6 3-6 3-6-3Z"/>
           <path d="M16 15v9"/>
@@ -16,20 +17,37 @@
       </span>
     </a>
 
+
+    <!-- MAIN NAVIGATION -->
     <div class="pl-nav-links">
-      <a href="{{ routes.root_url }}">Home</a>
-      <a href="{{ pages['ingredients'].url | default: '/pages/ingredients' }}">
-        Ingredients
+
+      <a href="{{ routes.root_url }}#hero">
+        Home
       </a>
-      <a href="{{ pages['how-it-works'].url | default: '/pages/how-it-works' }}">
-        How it works
+
+      <a href="{{ routes.root_url }}#shop">
+        Shop
       </a>
-      <a href="{{ routes.collections_url }}">Shop</a>
-      <a href="/collections/bundles">Bundles</a>
+
+      <a href="{{ routes.root_url }}#combos">
+        Combos
+      </a>
+
+      <a href="{{ routes.root_url }}#bundles">
+        Bundles
+      </a>
+
+      <a href="{{ routes.root_url }}#reviews">
+        Reviews
+      </a>
+
     </div>
 
+
+    <!-- ACTIONS -->
     <div class="pl-nav-actions">
 
+      <!-- SEARCH -->
       <a
         href="{{ routes.search_url }}"
         class="pl-nav-icon"
@@ -41,6 +59,8 @@
         </svg>
       </a>
 
+
+      <!-- ACCOUNT -->
       <a
         href="{{ routes.account_url }}"
         class="pl-nav-icon"
@@ -52,6 +72,8 @@
         </svg>
       </a>
 
+
+      <!-- CART -->
       <a
         href="{{ routes.cart_url }}"
         class="pl-nav-icon pl-cart-link"
