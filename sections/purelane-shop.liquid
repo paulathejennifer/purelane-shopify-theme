@@ -1,4 +1,6 @@
+{{ 'purelane-offer-card.css' | asset_url | stylesheet_tag }}
 {{ 'purelane-shop.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-atmosphere.css' | asset_url | stylesheet_tag }}
 
 {%- assign shop_collection = section.settings.collection -%}
 
@@ -8,22 +10,26 @@
   aria-labelledby="PurelaneShopHeading-{{ section.id }}"
 >
 
+  {% render 'purelane-atmosphere',
+    id: section.id
+  %}
+
   <div class="pl-shop__inner">
 
     {%- comment -%}
       ============================================================
       HEADER
       ============================================================
-      The "Loved by" number is intentionally editable through
-      the Shopify Theme Editor rather than being hardcoded.
     {%- endcomment -%}
 
-    <div class="pl-shop__heading">
+    <header class="pl-shop__heading">
 
       {%- if section.settings.eyebrow != blank -%}
-        <span class="pl-shop__eyebrow">
+
+        <p class="pl-shop__eyebrow">
           {{ section.settings.eyebrow | escape }}
-        </span>
+        </p>
+
       {%- endif -%}
 
 
@@ -38,21 +44,29 @@
         >
 
           {%- if section.settings.loved_by_label != blank -%}
+
             <span class="pl-shop__title-label">
               {{ section.settings.loved_by_label | escape }}
             </span>
+
           {%- endif -%}
 
+
           {%- if section.settings.loved_by_count != blank -%}
+
             <span class="pl-shop__title-count">
               {{ section.settings.loved_by_count | escape }}
             </span>
+
           {%- endif -%}
 
+
           {%- if section.settings.loved_by_suffix != blank -%}
+
             <span class="pl-shop__title-suffix">
               {{ section.settings.loved_by_suffix | escape }}
             </span>
+
           {%- endif -%}
 
         </h2>
@@ -69,7 +83,10 @@
       {%- endif -%}
 
 
-      <div class="pl-shop__divider" aria-hidden="true">
+      <div
+        class="pl-shop__divider"
+        aria-hidden="true"
+      >
 
         <span></span>
 
@@ -90,7 +107,7 @@
 
       </div>
 
-    </div>
+    </header>
 
 
     {%- if shop_collection != blank and shop_collection.products_count > 0 -%}
@@ -98,6 +115,12 @@
       <div class="pl-shop__grid">
 
         {%- for product in shop_collection.products limit: section.settings.products_to_show -%}
+
+          {%- comment -%}
+            ======================================================
+            PRODUCT DATA
+            ======================================================
+          {%- endcomment -%}
 
           {%- assign rating = product.metafields.custom.rating.value -%}
           {%- assign review_count = product.metafields.custom.review_count.value -%}
@@ -125,6 +148,12 @@
 
           {%- endif -%}
 
+
+          {%- comment -%}
+            ======================================================
+            PRODUCT CARD
+            ======================================================
+          {%- endcomment -%}
 
           <article class="pl-shop-card">
 
@@ -159,7 +188,7 @@
 
                   <div
                     class="pl-shop-card__image-fallback"
-                    aria-label="No product image available"
+                    aria-hidden="true"
                   >
                     <span>PURELANE</span>
                   </div>
@@ -169,7 +198,7 @@
 
                 {%- comment -%}
                   ==================================================
-                  PRODUCT BADGE
+                  BADGE
                   ==================================================
                 {%- endcomment -%}
 
@@ -213,28 +242,27 @@
 
               <div class="pl-shop-card__content">
 
-               <h3
-  class="pl-shop-card__product-title"
-  title="{{ product.title | escape }}"
-  aria-label="{{ product.title | escape }}"
->
-  {{ product.title | escape }}
-</h3>
+                <h3
+                  class="pl-shop-card__product-title"
+                  title="{{ product.title | escape }}"
+                  aria-label="{{ product.title | escape }}"
+                >
+                  {{ product.title | escape }}
+                </h3>
 
 
                 {%- comment -%}
                   ==================================================
                   RATING
                   ==================================================
-                  Both metafields are optional.
-
-                  If neither exists, no empty rating row is rendered.
-                  If only one exists, only that value appears.
                 {%- endcomment -%}
 
                 {%- if rating != blank or review_count != blank -%}
 
-                  <div class="pl-shop-card__rating">
+                  <div
+                    class="pl-shop-card__rating"
+                    aria-label="Product rating"
+                  >
 
                     {%- if rating != blank -%}
 
@@ -242,8 +270,13 @@
                         class="pl-shop-card__rating-value"
                         aria-label="{{ rating }} out of 5 stars"
                       >
-                        <span aria-hidden="true">★</span>
+
+                        <span aria-hidden="true">
+                          ★
+                        </span>
+
                         {{ rating }}
+
                       </span>
 
                     {%- endif -%}
@@ -266,6 +299,7 @@
                       <span class="pl-shop-card__review-count">
 
                         {{ review_count }}
+
                         review{% if review_count != 1 %}s{% endif %}
 
                       </span>
@@ -331,7 +365,12 @@
 
                 {%- else -%}
 
-                  <span class="pl-shop-card__button pl-shop-card__button--sold-out">
+                  <span
+                    class="
+                      pl-shop-card__button
+                      pl-shop-card__button--sold-out
+                    "
+                  >
 
                     <span>
                       Sold out
@@ -352,7 +391,15 @@
       </div>
 
 
-      {%- if section.settings.show_view_all and shop_collection.url != blank -%}
+      {%- comment -%}
+        ==========================================================
+        VIEW ALL
+        ==========================================================
+      {%- endcomment -%}
+
+      {%- if section.settings.show_view_all
+        and shop_collection.url != blank
+      -%}
 
         <div class="pl-shop__footer">
 
@@ -361,9 +408,13 @@
             class="pl-shop__view-all"
           >
 
-            {{ section.settings.view_all_label | escape }}
+            <span>
+              {{ section.settings.view_all_label | escape }}
+            </span>
 
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">
+              →
+            </span>
 
           </a>
 
@@ -373,6 +424,12 @@
 
 
     {%- else -%}
+
+      {%- comment -%}
+        ==========================================================
+        EMPTY STATE
+        ==========================================================
+      {%- endcomment -%}
 
       <div class="pl-shop__empty">
 
@@ -454,8 +511,8 @@
     {
       "type": "text",
       "id": "button_label",
-      "label": "Add to cart label",
-      "default": "Add to cart"
+      "label": "Product button label",
+      "default": "Shop product"
     },
 
     {

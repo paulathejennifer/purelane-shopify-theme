@@ -4,6 +4,10 @@
 
    Product collection / bestseller grid.
 
+   Works with:
+   - purelane-shop.liquid
+   - purelane-offer-card.css
+
    Design direction:
    - transparent section
    - homepage scene remains visible underneath
@@ -11,8 +15,9 @@
    - warm natural Purelane palette
    - strong editorial headings
    - supporting neutral text
-   - long product titles are NEVER clipped
-   - buttons remain anchored to the bottom of each card
+   - long product titles remain readable
+   - buttons stay anchored to the bottom
+   - responsive 4 / 2 / 1 column layout
    ============================================================ */
 
 
@@ -21,13 +26,6 @@
    ============================================================ */
 
 .pl-shop {
-
-  /*
-    Purelane palette.
-
-    Keep these variables local so the section continues to work
-    even if the global theme variables are changed elsewhere.
-  */
 
   --pl-shop-ink: #173d34;
   --pl-shop-ink-soft: rgba(23, 61, 52, 0.68);
@@ -63,12 +61,6 @@
 
   width: 100%;
 
-  /*
-    IMPORTANT:
-    The homepage scene/water must remain visible behind
-    this section.
-  */
-
   background: transparent;
 
   color: var(--pl-shop-ink);
@@ -82,37 +74,6 @@
   isolation: isolate;
 }
 
-
-/* ============================================================
-   ATMOSPHERIC WASH
-   ============================================================ */
-
-.pl-shop::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: -1;
-
-  background:
-    radial-gradient(
-      circle at 10% 18%,
-      rgba(255, 255, 255, 0.15),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 90% 72%,
-      rgba(71, 126, 106, 0.08),
-      transparent 38%
-    );
-
-  opacity: 0.72;
-}
 
 
 /* ============================================================
@@ -217,7 +178,8 @@
 
   text-transform: uppercase;
 
-  color: var(--pl-shop-ink);
+  color:
+    var(--pl-shop-ink);
 }
 
 
@@ -305,7 +267,7 @@
 
 
 /* ============================================================
-   PRODUCT CARD
+   SHOP CARD
    ============================================================ */
 
 .pl-shop-card {
@@ -315,6 +277,10 @@
   min-height: 100%;
 
   position: relative;
+
+  display: flex;
+
+  flex-direction: column;
 
   border:
     1px solid
@@ -345,6 +311,10 @@
 }
 
 
+/* ============================================================
+   CARD LIGHT EFFECT
+   ============================================================ */
+
 .pl-shop-card::after {
 
   content: "";
@@ -354,6 +324,8 @@
   inset: 0;
 
   pointer-events: none;
+
+  z-index: 5;
 
   border-radius: inherit;
 
@@ -368,26 +340,39 @@
 }
 
 
+/* ============================================================
+   CARD HOVER
+   ============================================================ */
+
 .pl-shop-card:hover {
 
   transform:
     translateY(-4px);
 
   box-shadow:
-    0 28px 58px rgba(20, 66, 53, 0.17),
-    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+    0 28px 58px
+    rgba(20, 66, 53, 0.17),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.94);
 }
 
 
 /* ============================================================
-   LINK
+   CARD LINK
    ============================================================ */
 
 .pl-shop-card__link {
 
+  position: relative;
+
+  z-index: 1;
+
   display: flex;
 
   flex-direction: column;
+
+  flex: 1;
 
   min-height: 100%;
 
@@ -507,7 +492,7 @@
 
 
 /* ============================================================
-   BADGES
+   PRODUCT BADGES
    ============================================================ */
 
 .pl-shop-card__badge,
@@ -516,6 +501,8 @@
   position: absolute;
 
   top: 12px;
+
+  z-index: 3;
 
   display: inline-flex;
 
@@ -589,6 +576,10 @@
 
 .pl-shop-card__content {
 
+  position: relative;
+
+  z-index: 2;
+
   display: flex;
 
   flex-direction: column;
@@ -606,24 +597,8 @@
    PRODUCT TITLE
    ============================================================ */
 
-/*
-  Product titles are allowed to wrap naturally, but are limited
-  to 3 visual lines.
-
-  If the title is longer than 3 lines, the browser displays
-  an ellipsis.
-
-  The full title remains available through the native tooltip
-  because the Liquid markup adds a title="" attribute.
-*/
-
 .pl-shop-card__product-title {
 
-  /*
-    Reserve exactly enough vertical space for up to 3 lines.
-    This keeps cards visually consistent even when some titles
-    are much shorter than others.
-  */
   min-height:
     calc(1.16em * 3);
 
@@ -658,9 +633,6 @@
   color:
     var(--pl-shop-ink);
 
-  /*
-    Modern multi-line truncation.
-  */
   display:
     -webkit-box;
 
@@ -673,20 +645,12 @@
   overflow:
     hidden;
 
-  /*
-    Allows long individual words / product codes to break
-    rather than destroying the card layout.
-  */
   overflow-wrap:
     anywhere;
 
   word-break:
     normal;
 
-  /*
-    Makes it obvious that the title can be inspected when
-    the user hovers over a truncated title.
-  */
   cursor:
     help;
 }
@@ -774,11 +738,9 @@
 
   flex-wrap: wrap;
 
-  gap:
-    8px;
+  gap: 8px;
 
-  margin-bottom:
-    17px;
+  margin-bottom: 17px;
 }
 
 
@@ -861,13 +823,6 @@
 
   min-height: 44px;
 
-  /*
-    This is the important part of the long-title solution.
-
-    No matter how tall the product title becomes,
-    the button is pushed to the bottom of the flex column.
-  */
-
   margin-top: auto;
 
   padding:
@@ -914,6 +869,10 @@
     transform 180ms ease;
 }
 
+
+/* ============================================================
+   BUTTON HOVER
+   ============================================================ */
 
 .pl-shop-card:hover
 .pl-shop-card__button {
@@ -998,6 +957,8 @@
 
   align-items: center;
 
+  justify-content: center;
+
   gap: 10px;
 
   min-height: 44px;
@@ -1075,13 +1036,15 @@
 
 .pl-shop__empty {
 
-  padding: 42px;
+  padding:
+    42px;
 
   border:
     1px dashed
     rgba(36, 95, 80, 0.22);
 
-  border-radius: 22px;
+  border-radius:
+    22px;
 
   background:
     rgba(238, 240, 230, 0.20);
@@ -1092,12 +1055,22 @@
   -webkit-backdrop-filter:
     blur(14px);
 
-  text-align: center;
+  text-align:
+    center;
 
   color:
     rgba(23, 61, 52, 0.66);
 
-  font-size: 14px;
+  font-family:
+    "Inter",
+    system-ui,
+    sans-serif;
+
+  font-size:
+    14px;
+
+  line-height:
+    1.6;
 }
 
 
@@ -1123,15 +1096,18 @@
         minmax(0, 1fr)
       );
 
-    gap: 18px;
+    gap:
+      18px;
   }
 
 
   .pl-shop-card__product-title {
 
-    font-size: 15px;
+    font-size:
+      15px;
 
-    line-height: 1.18;
+    line-height:
+      1.18;
   }
 
 }
@@ -1160,13 +1136,15 @@
 
   .pl-shop__heading {
 
-    margin-bottom: 24px;
+    margin-bottom:
+      24px;
   }
 
 
   .pl-shop__eyebrow {
 
-    font-size: 10px;
+    font-size:
+      10px;
 
     letter-spacing:
       0.20em;
@@ -1184,6 +1162,35 @@
 
     line-height:
       0.94;
+
+    column-gap:
+      7px;
+  }
+
+
+  .pl-shop__divider {
+
+    width:
+      165px;
+
+    gap:
+      11px;
+
+    margin-top:
+      15px;
+  }
+
+
+  .pl-shop__divider svg {
+
+    width:
+      18px;
+
+    height:
+      18px;
+
+    flex-basis:
+      18px;
   }
 
 
@@ -1192,20 +1199,30 @@
     grid-template-columns:
       1fr;
 
-    gap: 15px;
+    gap:
+      15px;
   }
 
 
   .pl-shop-card {
 
-    border-radius: 22px;
+    border-radius:
+      22px;
   }
 
 
   .pl-shop-card__media {
 
+    margin:
+      9px
+      9px
+      0;
+
     aspect-ratio:
       1 / 0.72;
+
+    border-radius:
+      16px;
   }
 
 
@@ -1219,18 +1236,19 @@
   }
 
 
-  /*
-    Long titles remain completely visible on mobile too.
-
-    Slightly more generous line-height prevents the final
-    line from visually colliding with the spacing underneath.
-  */
-
   .pl-shop-card__product-title {
 
-    font-size: 16px;
+    min-height:
+      calc(1.18em * 3);
 
-    line-height: 1.18;
+    max-height:
+      calc(1.18em * 3);
+
+    font-size:
+      16px;
+
+    line-height:
+      1.18;
 
     margin-bottom:
       10px;
@@ -1239,35 +1257,169 @@
 
   .pl-shop-card__rating {
 
-    font-size: 13px;
+    font-size:
+      13px;
+
+    margin-bottom:
+      12px;
   }
 
 
   .pl-shop-card__price {
 
-    font-size: 21px;
+    font-size:
+      21px;
   }
 
 
   .pl-shop-card__compare {
 
-    font-size: 13px;
+    font-size:
+      13px;
   }
 
 
   .pl-shop-card__discount {
 
-    font-size: 12px;
+    font-size:
+      12px;
   }
 
 
   .pl-shop-card__button {
 
-    min-height: 45px;
+    min-height:
+      45px;
 
-    font-size: 12px;
+    font-size:
+      12px;
   }
 
+
+  .pl-shop-card__badge,
+  .pl-shop-card__sold-out {
+
+    top:
+      11px;
+
+    min-height:
+      27px;
+
+    padding:
+      0 11px;
+
+    font-size:
+      9px;
+  }
+
+
+  .pl-shop-card__badge {
+
+    left:
+      11px;
+  }
+
+
+  .pl-shop-card__sold-out {
+
+    right:
+      11px;
+  }
+
+
+  .pl-shop__footer {
+
+    margin-top:
+      24px;
+  }
+
+
+  .pl-shop__view-all {
+
+    min-height:
+      43px;
+
+    padding:
+      0 20px;
+
+    font-size:
+      10px;
+  }
+
+}
+
+
+/* ============================================================
+   SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .pl-shop__inner {
+
+    width:
+      calc(100% - 22px);
+  }
+
+
+  .pl-shop {
+
+    padding:
+      36px 0
+      46px;
+  }
+
+
+  .pl-shop__title {
+
+    font-size:
+      32px;
+  }
+
+
+  .pl-shop-card__content {
+
+    padding:
+      14px;
+  }
+
+
+  .pl-shop-card__product-title {
+
+    font-size:
+      15px;
+  }
+
+
+  .pl-shop-card__price {
+
+    font-size:
+      20px;
+  }
+
+}
+
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+.pl-shop-card__link:focus-visible,
+.pl-shop__view-all:focus-visible {
+
+  outline:
+    3px solid
+    rgba(184, 121, 50, 0.55);
+
+  outline-offset:
+    4px;
+}
+
+
+.pl-shop-card__button {
+
+  user-select:
+    none;
 }
 
 
@@ -1282,7 +1434,23 @@
   .pl-shop-card__button,
   .pl-shop__view-all {
 
-    transition: none;
+    transition:
+      none;
+  }
+
+
+  .pl-shop-card:hover {
+
+    transform:
+      none;
+  }
+
+
+  .pl-shop-card:hover
+  .pl-shop-card__image {
+
+    transform:
+      none;
   }
 
 }
