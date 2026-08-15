@@ -1,0 +1,35 @@
+{%- comment -%}
+  ============================================================
+  PURELANE ATMOSPHERE
+
+  Shared translucent section surface.
+
+  Usage:
+
+  {% render 'purelane-atmosphere',
+    id: section.id
+  %}
+
+  Optional class:
+
+  {% render 'purelane-atmosphere',
+    id: section.id,
+    class: 'pl-bundles__atmosphere'
+  %}
+
+  The snippet outputs the atmospheric background layer only.
+  The parent section remains responsible for its own content.
+
+  IMPORTANT:
+  This is the SECTION atmosphere, not the card glass effect.
+
+  CSS lives in:
+    assets/purelane-atmosphere.css
+  ============================================================
+{%- endcomment -%}
+
+<div
+  id="PurelaneAtmosphere-{{ id }}"
+  class="pl-atmosphere{% if class != blank %} {{ class }}{% endif %}"
+  aria-hidden="true"
+></div>
